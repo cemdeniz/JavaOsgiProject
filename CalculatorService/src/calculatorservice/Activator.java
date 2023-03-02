@@ -2,8 +2,6 @@ package calculatorservice;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import javax.swing.*;
-import org.osgi.framework.ServiceReference;
 
 import CalculatorGUI.Calculator;
 import tranlatorservice.service.TranslatorService;

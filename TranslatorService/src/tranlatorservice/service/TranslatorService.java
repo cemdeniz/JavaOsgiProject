@@ -7,6 +7,9 @@ import translatorservice.impl.ITranslator;
 
 public class TranslatorService implements ITranslator {
 
+	private static final String turkishLocale = "tr_TR";
+	private static final String englishLocale = "en_US";
+	
 	private Map<Integer, String> numberToWordMapTR;
 	private Map<String, Integer> wordToNumberMapTR;
 	private Map<Integer, String> numberToWordMapEN;
@@ -20,7 +23,7 @@ public class TranslatorService implements ITranslator {
 		createHashMap();
 	}
 
-	public void createHashMap() {
+	private void createHashMap() {
 		// Initialize translation maps for Turkish
 
 		setNumberToWordMapTR(new HashMap<>());
@@ -156,9 +159,9 @@ public class TranslatorService implements ITranslator {
 
 	public String numberToWord(int number, String locale) {
 		Map<Integer, String> numberToWordMap = null;
-		if (locale.toString().equals("tr_TR")) {
+		if (locale.equals(turkishLocale)) {
 			numberToWordMap = getNumberToWordMapTR();
-		} else if (locale.equals("en")) {
+		} else if (locale.equals(englishLocale)) {
 			numberToWordMap = numberToWordMapEN;
 		} else {
 		}
@@ -168,7 +171,7 @@ public class TranslatorService implements ITranslator {
 		if (number == 0) {
 			words.append(numberToWordMap.get(number));
 		} else if (number < 0) {
-			if (locale.toString().equals("tr_TR")) {
+			if (locale.equals(turkishLocale)) {
 				words.append("eksi ");
 			} else {
 				words.append("minus ");
@@ -176,7 +179,7 @@ public class TranslatorService implements ITranslator {
 			words.append(numberToWord(Math.abs(number), locale));
 		} else if ((number / 1000000000) > 0) {
 			words.append(numberToWord(number / 1000000000, locale));
-			if (locale.toString().equals("tr_TR")) {
+			if (locale.equals(turkishLocale)) {
 				words.append(" milyar ");
 			} else {
 				words.append(" billion ");
@@ -186,7 +189,7 @@ public class TranslatorService implements ITranslator {
 			}
 		} else if ((number / 1000000) > 0) {
 			words.append(numberToWord(number / 1000000, locale));
-			if (locale == "tr") {
+			if (locale.equals(turkishLocale)) {
 				words.append(" milyon ");
 			} else {
 				words.append(" million ");
@@ -196,7 +199,7 @@ public class TranslatorService implements ITranslator {
 			}
 		} else if ((number / 1000) > 0) {
 			words.append(numberToWord(number / 1000, locale));
-			if (locale.toString().equals("tr_TR")) {
+			if (locale.equals(turkishLocale)) {
 				words.append(" bin ");
 			} else {
 				words.append(" thousand ");
@@ -206,7 +209,7 @@ public class TranslatorService implements ITranslator {
 			}
 		} else if ((number / 100) > 0) {
 			words.append(numberToWord(number / 100, locale));
-			if (locale.toString().equals("tr_TR")) {
+			if (locale.equals(turkishLocale)) {
 				words.append(" yüz ");
 			} else {
 				words.append(" hundred ");
@@ -215,8 +218,9 @@ public class TranslatorService implements ITranslator {
 				words.append(numberToWord(number % 100, locale));
 			}
 		} else if ((number / 10) > 0) {
-			if (locale.toString().equals("tr_TR")) {
+			if (locale.equals(turkishLocale)) {
 				words.append(getNumberToWordMapTR().get((number / 10) * 10));
+				words.append(" ");
 				if (!isModZero(number, 10)) {
 					words.append(numberToWord(number % 10, locale));
 				}
@@ -227,6 +231,7 @@ public class TranslatorService implements ITranslator {
 					
 				}else {
 					words.append(getNumberToWordMapEN().get((number / 10) * 10));
+					words.append(" ");
 					if (!isModZero(number, 10)) {
 						words.append(numberToWord(number % 10, locale));
 					}
@@ -235,7 +240,7 @@ public class TranslatorService implements ITranslator {
 			}
 			words.append(" ");
 		} else {
-			if (locale.toString().equals("tr_TR")) {
+			if (locale.equals(turkishLocale)) {
 				words.append(getNumberToWordMapTR().get(number));
 			} else {
 				words.append(numberToWordMapEN.get(number));
@@ -247,13 +252,13 @@ public class TranslatorService implements ITranslator {
 	}
 
 	@Override
-	public int wordToNumber(String words, String locale) {
+	public double wordToNumber(String words, String locale) {
 		// TODO Auto-generated method stub
 
 		Map<String, Integer> wordToNumberMap = null;
-		if (locale.toString().equals("tr_TR")) {
+		if (locale.equals(turkishLocale)) {
 			wordToNumberMap = wordToNumberMapTR;
-		} else if (locale.equals("en")) {
+		} else if (locale.equals(englishLocale)) {
 			wordToNumberMap = wordToNumberMapEN;
 		} else {
 			return 0;
@@ -261,8 +266,8 @@ public class TranslatorService implements ITranslator {
 
 		String[] wordArray = words.split(" ");
 
-		int number = 0;
-		int temp = 0;
+		double number = 0;
+		double temp = 0;
 		int negativeNumberCount = 0;
 
 		for (String word : wordArray) {
@@ -312,7 +317,6 @@ public class TranslatorService implements ITranslator {
 		}else {
 			return false;
 		}
-		
 		
 	}
 	
