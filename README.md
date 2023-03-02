@@ -2,7 +2,7 @@
 
 Java SE version = 1.8
 
-Java Sdk version = 8
+Java JDK version = 8
 
 Recommended IDE = Eclipse
 
