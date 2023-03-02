@@ -53,7 +53,8 @@ public class Calculator extends JFrame implements ActionListener {
 		enButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				currentLocale = Locale.ENGLISH;
+				//currentLocale = Locale.ENGLISH;  This doesn't work for other computers
+				currentLocale = new Locale("en", "US");
 				updateUI(currentLocale);
 			}
 		});
