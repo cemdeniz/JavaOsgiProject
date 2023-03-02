@@ -22,8 +22,8 @@ public class Calculator extends JFrame implements ActionListener {
 	// new OSGi Service
 	TranslatorService translatorService = new TranslatorService();
 
+	//final variables
 	private static final String turkishLocale = "tr_TR";
-	private static final String englishLocale = "en_US";
 
 	// UI Components
 	private JTextField number1Field;
@@ -37,20 +37,21 @@ public class Calculator extends JFrame implements ActionListener {
 	private JLabel number2Label = new JLabel();
 	private JLabel resultLabel = new JLabel();
 
-	//
+	//global variables
 	private String number1;
 	private String number2;
 	private String result = "";
-
+	
+	//new Locale
 	private Locale currentLocale;
 
 	public Calculator() {
+		
+		// Setting up default UI
 		super("Calculator");
 		setSize(870, 200);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new FlowLayout());
-
-		// Setting up default UI
 		currentLocale = new Locale("tr", "TR");
 		createUI();
 	}
@@ -82,7 +83,6 @@ public class Calculator extends JFrame implements ActionListener {
 		add(trButton);
 
 		// Input fields
-
 		number1Label = new JLabel(getLocalizedString(currentLocale, "number1"));
 		add(number1Label);
 
@@ -144,7 +144,7 @@ public class Calculator extends JFrame implements ActionListener {
 	}
 
 	private String getNumber1(Locale currentLocale) {
-		// Returning first number input
+		// Checks if the first input string is in our HashMaps, (if true) returns the String
 		String number1 = number1Field.getText();
 		if (!isNull(number1) && !isEmpty(number1)) {
 			String[] wordArray = number1.split(" ");
@@ -181,7 +181,7 @@ public class Calculator extends JFrame implements ActionListener {
 	}
 
 	private String getNumber2(Locale currentLocale) {
-		// Returning second number input
+		// Checks if the second input string is in our HashMaps, (if true) returns the String
 		String number2 = number2Field.getText();
 		if (!isNull(number2) && !isEmpty(number2)) {
 			String[] word2Array = number2.split(" ");
@@ -217,44 +217,48 @@ public class Calculator extends JFrame implements ActionListener {
 		return number2;
 	}
 
-	private void setResult(String result) {	
+	private void setResult(String result) {
+		//Setting the result in UI
 		resultField.setText(result);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// 4 operation button listener
+		
 		String actionCommand = e.getActionCommand();
-
-		// Math Button action listener
-		number1 = getNumber1(currentLocale);
-		number2 = getNumber2(currentLocale);
-
 		double num1 = 0;
 		double num2 = 0;
 		double mathResult = 0;
+		number1 = getNumber1(currentLocale);
+		number2 = getNumber2(currentLocale);
 
 		switch (actionCommand) {
 		case "Addition":
 		case "Topla":
-		
+			
+			//addition method
 			additionTopla(number1, number2, num1, num2, mathResult);
 			break;
 
 		case "Subtraction":
 		case "Çıkar":
 		
+			//subtraction method
 			subtractionCikar(number1, number2, num1, num2, mathResult);
 			break;
 
 		case "Multiplication":
 		case "Çarp":
 			
+			//multiply method
 			multiplyCarp(number1, number2, num1, num2, mathResult);
 			break;
 
 		case "Division":
 		case "Böl":
 		
+			//division method
 			divisionBol(number1, number2, num1, num2, mathResult);
 			break;
 
@@ -263,6 +267,7 @@ public class Calculator extends JFrame implements ActionListener {
 	}
 
 	private void showWarning(Locale currentLocale) {
+		//Throws a warning
 		if (currentLocale.getLanguage().equals("tr")) {
 			JOptionPane.showMessageDialog(null,
 					"Sayılar yazı şeklinde girilmeli.\n" + "Girdiğiniz yazı dil ile uyumlu olmalı.\n"
@@ -277,7 +282,9 @@ public class Calculator extends JFrame implements ActionListener {
 	}
 
 	private void additionTopla(String number1, String number2, double num1, double num2, double mathResult) {
-
+		//Calls translatorService.wordToNumber for converting the words into numbers to do math operation.
+		//After operation calls translatorService.numberToWord to convert result into words to show result.
+		
 		if (!isNull(number1)) {
 			num1 = translatorService.wordToNumber(number1, currentLocale.toString());
 		}
@@ -285,7 +292,7 @@ public class Calculator extends JFrame implements ActionListener {
 			num2 = translatorService.wordToNumber(number2, currentLocale.toString());
 		}
 		if (!isNull(number1) && !isNull(number2)) {
-			//checking if operation result is Integer
+			
 			mathResult = num1 + num2;
 			if (isIntegerInterval(mathResult)) {
 				result = translatorService.numberToWord((int) num1 + (int) num2, currentLocale.toString());
@@ -378,23 +385,24 @@ public class Calculator extends JFrame implements ActionListener {
 	}
 
 	private boolean isIntegerInterval(double number) {
+		//checking if operation result is in integer interval -2147483648< ... <2147483647
 		if (number < 2147483647 && -2147483648 < number) {
 			return true;
 		} else {
 			return false;
 		}
-
 	}
 
 	private boolean isNull(String number) {
+		//cheking if the number is null
 		if (number == null) {
 			return true;
 		}
 		return false;
-
 	}
 
 	private boolean isEmpty(String number) {
+		//cheking if the number is empty
 		if (number.equals("")) {
 			return true;
 		}
@@ -402,6 +410,7 @@ public class Calculator extends JFrame implements ActionListener {
 	}
 
 	private String isUndefined(double number, Locale currentLocale) {
+		//cheking if the number is undefined
 		String result = "";
 		if (number == 0.0 && currentLocale.getLanguage().equals("tr")) {
 			result = "Tanımsız";

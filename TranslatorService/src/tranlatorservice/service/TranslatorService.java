@@ -129,7 +129,7 @@ public class TranslatorService implements ITranslator {
 		wordToNumberMapEN.put("eighty", 80);
 		wordToNumberMapEN.put("ninety", 90);
 
-		// Setting up big numbers and words
+		// Initialize bigger translation maps for Turkish
 		setBigNumberToWordTR(new HashMap<>());
 		bigWordToNumberTR = new HashMap<>();
 
@@ -142,6 +142,7 @@ public class TranslatorService implements ITranslator {
 		bigWordToNumberTR.put("milyon", 100000);
 		bigWordToNumberTR.put("milyar", 100000000);
 
+		// Initialize bigger translation maps for English
 		bigNumberToWordEN = new HashMap<>();
 		bigWordToNumberEN = new HashMap<>();
 
@@ -158,6 +159,8 @@ public class TranslatorService implements ITranslator {
 	}
 
 	public String numberToWord(int number, String locale) {
+		//Converts numbers into words with selected language
+		
 		Map<Integer, String> numberToWordMap = null;
 		if (locale.equals(turkishLocale)) {
 			numberToWordMap = getNumberToWordMapTR();
@@ -168,6 +171,7 @@ public class TranslatorService implements ITranslator {
 
 		StringBuilder words = new StringBuilder();
 
+		//Checking HashMap if the number is 0, negative or bigger digit
 		if (number == 0) {
 			words.append(numberToWordMap.get(number));
 		} else if (number < 0) {
@@ -253,7 +257,6 @@ public class TranslatorService implements ITranslator {
 
 	@Override
 	public double wordToNumber(String words, String locale) {
-		// TODO Auto-generated method stub
 
 		Map<String, Integer> wordToNumberMap = null;
 		if (locale.equals(turkishLocale)) {
@@ -264,12 +267,14 @@ public class TranslatorService implements ITranslator {
 			return 0;
 		}
 
+		//Seperates words and puts into Array
 		String[] wordArray = words.split(" ");
 
 		double number = 0;
 		double temp = 0;
 		int negativeNumberCount = 0;
 
+		//Converting String number into integer
 		for (String word : wordArray) {
 			Integer value = wordToNumberMap.get(word);
 			if (value != null) {
@@ -321,6 +326,7 @@ public class TranslatorService implements ITranslator {
 	}
 	
 	private boolean isModZero(int number1, int number2) {
+		//Checking if the number1 %(mod) number2 is 0
 		if (number1 % number2 == 0) {
 			return true;
 		} else
@@ -328,6 +334,7 @@ public class TranslatorService implements ITranslator {
 
 	}
 
+	//Getter and setters for HashMaps
 	public Map<Integer, String> getNumberToWordMapTR() {
 		return numberToWordMapTR;
 	}
