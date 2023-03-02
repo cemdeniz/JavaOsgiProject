@@ -3,6 +3,7 @@ package CalculatorGUI;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
@@ -217,9 +218,9 @@ public class Calculator extends JFrame implements ActionListener {
 		return number2;
 	}
 
-	private void setResult(String result) {
+	private void setResult(String result) {	
 		//Setting the result in UI
-		resultField.setText(result);
+		resultField.setText(eraseElement(result));
 	}
 
 	@Override
@@ -418,6 +419,31 @@ public class Calculator extends JFrame implements ActionListener {
 			result = "Undefined";
 		}
 		return result;
+	}
+	
+	private String eraseElement(String result) {
+		//Removing the "bir" right before "yüz". This way TR result is more readable for some cases.
+		StringBuilder words = new StringBuilder();
+
+		int i=0;
+		String[] resultArray = result.split(" ");
+		for(String word : resultArray) {
+			if(resultArray[i].equals("bir") && i!=(resultArray.length-1) && resultArray[i+1].equals("yüz")) {
+				
+					// if this condition true we replace "bir" with ""
+					resultArray[i] = "";
+					//words.append(" ");
+				
+			}else {
+				words.append(resultArray[i]);
+				words.append(" ");
+			}
+			
+			i++;
+		}  
+		
+		return words.toString();
+		
 	}
 
 }
