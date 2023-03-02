@@ -49,7 +49,7 @@ public class Calculator extends JFrame implements ActionListener {
 		
 		// Setting up default UI
 		super("Calculator");
-		setSize(870, 200);
+		setSize(940, 200);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new FlowLayout());
 		currentLocale = new Locale("tr", "TR");
@@ -99,7 +99,7 @@ public class Calculator extends JFrame implements ActionListener {
 		resultLabel = new JLabel(getLocalizedString(currentLocale, "result"));
 		add(resultLabel);
 
-		resultField = new JTextField(10);
+		resultField = new JTextField(15);
 		resultField.setEditable(false);
 		add(resultField);
 
