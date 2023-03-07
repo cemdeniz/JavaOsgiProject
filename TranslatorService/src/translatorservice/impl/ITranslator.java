@@ -1,8 +1,10 @@
 package translatorservice.impl;
 
+import java.math.BigInteger;
+
 public interface ITranslator {
 	
-	public String numberToWord(int number, String locale);
-	public double wordToNumber(String word, String locale);
+	public String numberToWord(BigInteger number, String locale);
+	public BigInteger wordToNumber(String word, String locale);
 
 }

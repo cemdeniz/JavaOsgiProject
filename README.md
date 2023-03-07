@@ -8,7 +8,8 @@ Recommended IDE = Eclipse
 
 Overall, the application is composed of two OSGi services: one for translating numbers to words and words to numbers, and another for the user interface and basic math operations. 
 The two services will communicate via interfaces defined in their respective bundles, and the user interface service will listen for changes to the active language preference and update the user interface accordingly. 
-The application is be able to support Turkish and English languages, with Turkish being the default. Java Swing is used for the user interface and integer arithmetic for the math operations.
+The application is be able to support Turkish and English languages, with Turkish being the default. Java Swing is used for the user interface and number arithmetic for the math operations up to Decillion numbers.
+Note: if you multiply decillion number with another decillion number, you'll get "number decillion decillion" which means (number x decillion exponent decillion).
 
 ![osgiApp](https://user-images.githubusercontent.com/29862339/222452980-7a6bbf97-e906-477f-aadc-97e425d73761.png)
 

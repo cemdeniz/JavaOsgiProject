@@ -1,5 +1,6 @@
 package tranlatorservice.service;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,15 +10,16 @@ public class TranslatorService implements ITranslator {
 
 	private static final String turkishLocale = "tr_TR";
 	private static final String englishLocale = "en_US";
-	
-	private Map<Integer, String> numberToWordMapTR;
-	private Map<String, Integer> wordToNumberMapTR;
-	private Map<Integer, String> numberToWordMapEN;
-	private Map<String, Integer> wordToNumberMapEN;
-	private Map<Integer, String> bigNumberToWordTR;
-	private Map<String, Integer> bigWordToNumberTR;
-	private Map<Integer, String> bigNumberToWordEN;
-	private Map<String, Integer> bigWordToNumberEN;
+
+	private Map<BigInteger, String> numberToWordMapTR;
+	private Map<String, BigInteger> wordToNumberMapTR;
+	private Map<BigInteger, String> bigNumberToWordTR;
+	private Map<String, BigInteger> bigWordToNumberTR;
+
+	private Map<BigInteger, String> numberToWordMapEN;
+	private Map<String, BigInteger> wordToNumberMapEN;
+	private Map<BigInteger, String> bigNumberToWordEN;
+	private Map<String, BigInteger> bigWordToNumberEN;
 
 	public TranslatorService() {
 		createHashMap();
@@ -28,140 +30,175 @@ public class TranslatorService implements ITranslator {
 
 		setNumberToWordMapTR(new HashMap<>());
 		wordToNumberMapTR = new HashMap<>();
-		getNumberToWordMapTR().put(0, "sıfır");
-		getNumberToWordMapTR().put(1, "bir");
-		getNumberToWordMapTR().put(2, "iki");
-		getNumberToWordMapTR().put(3, "üç");
-		getNumberToWordMapTR().put(4, "dört");
-		getNumberToWordMapTR().put(5, "beş");
-		getNumberToWordMapTR().put(6, "altı");
-		getNumberToWordMapTR().put(7, "yedi");
-		getNumberToWordMapTR().put(8, "sekiz");
-		getNumberToWordMapTR().put(9, "dokuz");
-		getNumberToWordMapTR().put(10, "on");
-		getNumberToWordMapTR().put(20, "yirmi");
-		getNumberToWordMapTR().put(30, "otuz");
-		getNumberToWordMapTR().put(40, "kırk");
-		getNumberToWordMapTR().put(50, "elli");
-		getNumberToWordMapTR().put(60, "atmış");
-		getNumberToWordMapTR().put(70, "yetmiş");
-		getNumberToWordMapTR().put(80, "seksen");
-		getNumberToWordMapTR().put(90, "doksan");
 
-		wordToNumberMapTR.put("sıfır", 0);
-		wordToNumberMapTR.put("bir", 1);
-		wordToNumberMapTR.put("iki", 2);
-		wordToNumberMapTR.put("üç", 3);
-		wordToNumberMapTR.put("dört", 4);
-		wordToNumberMapTR.put("beş", 5);
-		wordToNumberMapTR.put("altı", 6);
-		wordToNumberMapTR.put("yedi", 7);
-		wordToNumberMapTR.put("sekiz", 8);
-		wordToNumberMapTR.put("dokuz", 9);
-		wordToNumberMapTR.put("on", 10);
-		wordToNumberMapTR.put("yirmi", 20);
-		wordToNumberMapTR.put("otuz", 30);
-		wordToNumberMapTR.put("kırk", 40);
-		wordToNumberMapTR.put("elli", 50);
-		wordToNumberMapTR.put("atmış", 60);
-		wordToNumberMapTR.put("yetmiş", 70);
-		wordToNumberMapTR.put("seksen", 80);
-		wordToNumberMapTR.put("doksan", 90);
+		getNumberToWordMapTR().put(BigInteger.ZERO, "sıfır");
+		getNumberToWordMapTR().put(BigInteger.ONE, "bir");
+		getNumberToWordMapTR().put(BigInteger.valueOf(2), "iki");
+		getNumberToWordMapTR().put(BigInteger.valueOf(3), "üç");
+		getNumberToWordMapTR().put(BigInteger.valueOf(4), "dört");
+		getNumberToWordMapTR().put(BigInteger.valueOf(5), "beş");
+		getNumberToWordMapTR().put(BigInteger.valueOf(6), "altı");
+		getNumberToWordMapTR().put(BigInteger.valueOf(7), "yedi");
+		getNumberToWordMapTR().put(BigInteger.valueOf(8), "sekiz");
+		getNumberToWordMapTR().put(BigInteger.valueOf(9), "dokuz");
+		getNumberToWordMapTR().put(BigInteger.valueOf(10), "on");
+		getNumberToWordMapTR().put(BigInteger.valueOf(20), "yirmi");
+		getNumberToWordMapTR().put(BigInteger.valueOf(30), "otuz");
+		getNumberToWordMapTR().put(BigInteger.valueOf(40), "kırk");
+		getNumberToWordMapTR().put(BigInteger.valueOf(50), "elli");
+		getNumberToWordMapTR().put(BigInteger.valueOf(60), "atmış");
+		getNumberToWordMapTR().put(BigInteger.valueOf(70), "yetmiş");
+		getNumberToWordMapTR().put(BigInteger.valueOf(80), "seksen");
+		getNumberToWordMapTR().put(BigInteger.valueOf(90), "doksan");
+
+		wordToNumberMapTR.put("sıfır", BigInteger.ZERO);
+		wordToNumberMapTR.put("bir", BigInteger.ONE);
+		wordToNumberMapTR.put("iki", BigInteger.valueOf(2));
+		wordToNumberMapTR.put("üç", BigInteger.valueOf(3));
+		wordToNumberMapTR.put("dört", BigInteger.valueOf(4));
+		wordToNumberMapTR.put("beş", BigInteger.valueOf(5));
+		wordToNumberMapTR.put("altı", BigInteger.valueOf(6));
+		wordToNumberMapTR.put("yedi", BigInteger.valueOf(7));
+		wordToNumberMapTR.put("sekiz", BigInteger.valueOf(8));
+		wordToNumberMapTR.put("dokuz", BigInteger.valueOf(9));
+		wordToNumberMapTR.put("on", BigInteger.valueOf(10));
+		wordToNumberMapTR.put("yirmi", BigInteger.valueOf(20));
+		wordToNumberMapTR.put("otuz", BigInteger.valueOf(30));
+		wordToNumberMapTR.put("kırk", BigInteger.valueOf(40));
+		wordToNumberMapTR.put("elli", BigInteger.valueOf(50));
+		wordToNumberMapTR.put("atmış", BigInteger.valueOf(60));
+		wordToNumberMapTR.put("yetmiş", BigInteger.valueOf(70));
+		wordToNumberMapTR.put("seksen", BigInteger.valueOf(80));
+		wordToNumberMapTR.put("doksan", BigInteger.valueOf(90));
 
 		// Initialize translation maps for English
 		numberToWordMapEN = new HashMap<>();
 		wordToNumberMapEN = new HashMap<>();
-		numberToWordMapEN.put(0, "zero");
-		numberToWordMapEN.put(1, "one");
-		numberToWordMapEN.put(2, "two");
-		numberToWordMapEN.put(3, "three");
-		numberToWordMapEN.put(4, "four");
-		numberToWordMapEN.put(5, "five");
-		numberToWordMapEN.put(6, "six");
-		numberToWordMapEN.put(7, "seven");
-		numberToWordMapEN.put(8, "eight");
-		numberToWordMapEN.put(9, "nine");
-		numberToWordMapEN.put(10, "ten");
-		numberToWordMapEN.put(11, "eleven");
-		numberToWordMapEN.put(12, "twelve");
-		numberToWordMapEN.put(13, "thirteen");
-		numberToWordMapEN.put(14, "fourteen");
-		numberToWordMapEN.put(15, "fifteen");
-		numberToWordMapEN.put(16, "sixteen");
-		numberToWordMapEN.put(17, "seventeen");
-		numberToWordMapEN.put(18, "eighteen");
-		numberToWordMapEN.put(19, "nineteen");
-		numberToWordMapEN.put(20, "twenty");
-		numberToWordMapEN.put(30, "thirty");
-		numberToWordMapEN.put(40, "forty");
-		numberToWordMapEN.put(50, "fifty");
-		numberToWordMapEN.put(60, "sixty");
-		numberToWordMapEN.put(70, "seventy");
-		numberToWordMapEN.put(80, "eighty");
-		numberToWordMapEN.put(90, "ninety");
 
-		wordToNumberMapEN.put("zero", 0);
-		wordToNumberMapEN.put("one", 1);
-		wordToNumberMapEN.put("two", 2);
-		wordToNumberMapEN.put("three", 3);
-		wordToNumberMapEN.put("four", 4);
-		wordToNumberMapEN.put("five", 5);
-		wordToNumberMapEN.put("six", 6);
-		wordToNumberMapEN.put("seven", 7);
-		wordToNumberMapEN.put("eight", 8);
-		wordToNumberMapEN.put("nine", 9);
-		wordToNumberMapEN.put("ten", 10);
-		wordToNumberMapEN.put("eleven", 11);
-		wordToNumberMapEN.put("twelve", 12);
-		wordToNumberMapEN.put("thirteen", 13);
-		wordToNumberMapEN.put("fourteen", 14);
-		wordToNumberMapEN.put("fifteen", 15);
-		wordToNumberMapEN.put("sixteen", 16);
-		wordToNumberMapEN.put("seventeen", 17);
-		wordToNumberMapEN.put("eighteen", 18);
-		wordToNumberMapEN.put("nineteen", 19);
-		wordToNumberMapEN.put("twenty", 20);
-		wordToNumberMapEN.put("thirty", 30);
-		wordToNumberMapEN.put("forty", 40);
-		wordToNumberMapEN.put("fifty", 50);
-		wordToNumberMapEN.put("sixty", 60);
-		wordToNumberMapEN.put("seventy", 70);
-		wordToNumberMapEN.put("eighty", 80);
-		wordToNumberMapEN.put("ninety", 90);
+		numberToWordMapEN.put(BigInteger.ZERO, "zero");
+		numberToWordMapEN.put(BigInteger.ONE, "one");
+		numberToWordMapEN.put(BigInteger.valueOf(2), "two");
+		numberToWordMapEN.put(BigInteger.valueOf(3), "three");
+		numberToWordMapEN.put(BigInteger.valueOf(4), "four");
+		numberToWordMapEN.put(BigInteger.valueOf(5), "five");
+		numberToWordMapEN.put(BigInteger.valueOf(6), "six");
+		numberToWordMapEN.put(BigInteger.valueOf(7), "seven");
+		numberToWordMapEN.put(BigInteger.valueOf(8), "eight");
+		numberToWordMapEN.put(BigInteger.valueOf(9), "nine");
+		numberToWordMapEN.put(BigInteger.valueOf(10), "ten");
+		numberToWordMapEN.put(BigInteger.valueOf(11), "eleven");
+		numberToWordMapEN.put(BigInteger.valueOf(12), "twelve");
+		numberToWordMapEN.put(BigInteger.valueOf(13), "thirteen");
+		numberToWordMapEN.put(BigInteger.valueOf(14), "fourteen");
+		numberToWordMapEN.put(BigInteger.valueOf(15), "fifteen");
+		numberToWordMapEN.put(BigInteger.valueOf(16), "sixteen");
+		numberToWordMapEN.put(BigInteger.valueOf(17), "seventeen");
+		numberToWordMapEN.put(BigInteger.valueOf(18), "eighteen");
+		numberToWordMapEN.put(BigInteger.valueOf(19), "nineteen");
+		numberToWordMapEN.put(BigInteger.valueOf(20), "twenty");
+		numberToWordMapEN.put(BigInteger.valueOf(30), "thirty");
+		numberToWordMapEN.put(BigInteger.valueOf(40), "forty");
+		numberToWordMapEN.put(BigInteger.valueOf(50), "fifty");
+		numberToWordMapEN.put(BigInteger.valueOf(60), "sixty");
+		numberToWordMapEN.put(BigInteger.valueOf(70), "seventy");
+		numberToWordMapEN.put(BigInteger.valueOf(80), "eighty");
+		numberToWordMapEN.put(BigInteger.valueOf(90), "ninety");
+
+		wordToNumberMapEN.put("zero", BigInteger.ZERO);
+		wordToNumberMapEN.put("one", BigInteger.ONE);
+		wordToNumberMapEN.put("two", BigInteger.valueOf(2));
+		wordToNumberMapEN.put("three", BigInteger.valueOf(3));
+		wordToNumberMapEN.put("four", BigInteger.valueOf(4));
+		wordToNumberMapEN.put("five", BigInteger.valueOf(5));
+		wordToNumberMapEN.put("six", BigInteger.valueOf(6));
+		wordToNumberMapEN.put("seven", BigInteger.valueOf(7));
+		wordToNumberMapEN.put("eight", BigInteger.valueOf(8));
+		wordToNumberMapEN.put("nine", BigInteger.valueOf(9));
+		wordToNumberMapEN.put("ten", BigInteger.valueOf(10));
+		wordToNumberMapEN.put("eleven", BigInteger.valueOf(11));
+		wordToNumberMapEN.put("twelve", BigInteger.valueOf(12));
+		wordToNumberMapEN.put("thirteen", BigInteger.valueOf(13));
+		wordToNumberMapEN.put("fourteen", BigInteger.valueOf(14));
+		wordToNumberMapEN.put("fifteen", BigInteger.valueOf(15));
+		wordToNumberMapEN.put("sixteen", BigInteger.valueOf(16));
+		wordToNumberMapEN.put("seventeen", BigInteger.valueOf(17));
+		wordToNumberMapEN.put("eighteen", BigInteger.valueOf(18));
+		wordToNumberMapEN.put("nineteen", BigInteger.valueOf(19));
+		wordToNumberMapEN.put("twenty", BigInteger.valueOf(20));
+		wordToNumberMapEN.put("thirty", BigInteger.valueOf(30));
+		wordToNumberMapEN.put("forty", BigInteger.valueOf(40));
+		wordToNumberMapEN.put("fifty", BigInteger.valueOf(50));
+		wordToNumberMapEN.put("sixty", BigInteger.valueOf(60));
+		wordToNumberMapEN.put("seventy", BigInteger.valueOf(70));
+		wordToNumberMapEN.put("eighty", BigInteger.valueOf(80));
+		wordToNumberMapEN.put("ninety", BigInteger.valueOf(90));
 
 		// Initialize bigger translation maps for Turkish
 		setBigNumberToWordTR(new HashMap<>());
 		bigWordToNumberTR = new HashMap<>();
 
-		getBigNumberToWordTR().put(100, "yüz");
-		getBigNumberToWordTR().put(1000, "bin");
-		getBigNumberToWordTR().put(100000, "milyon");
-		getBigNumberToWordTR().put(100000000, "milyar");
-		bigWordToNumberTR.put("yüz", 100);
-		bigWordToNumberTR.put("bin", 1000);
-		bigWordToNumberTR.put("milyon", 100000);
-		bigWordToNumberTR.put("milyar", 100000000);
+		getBigNumberToWordTR().put(BigInteger.valueOf(100), "yüz");
+		getBigNumberToWordTR().put(BigInteger.valueOf(1000), "bin");
+		getBigNumberToWordTR().put(BigInteger.valueOf(1000000), "milyon");
+		getBigNumberToWordTR().put(BigInteger.valueOf(1000000000), "milyar");
+		getBigNumberToWordTR().put(BigInteger.valueOf(1000000000000L), "trilyon");
+		getBigNumberToWordTR().put(BigInteger.valueOf(1000000000000000L), "katrilyon");
+		getBigNumberToWordTR().put(BigInteger.valueOf(1000000000000000000L), "kentrilyon");
+		getBigNumberToWordTR().put(new BigInteger("1000000000000000000000"), "sekstilyon");
+		getBigNumberToWordTR().put(new BigInteger("1000000000000000000000000"), "septilyon");
+		getBigNumberToWordTR().put(new BigInteger("1000000000000000000000000000"), "oktilyon");
+		getBigNumberToWordTR().put(new BigInteger("1000000000000000000000000000000"), "nonilyon");
+		getBigNumberToWordTR().put(new BigInteger("1000000000000000000000000000000000"), "desilyon");
+
+		bigWordToNumberTR.put("yüz", BigInteger.valueOf(100));
+		bigWordToNumberTR.put("bin", BigInteger.valueOf(1000));
+		bigWordToNumberTR.put("milyon", BigInteger.valueOf(1000000));
+		bigWordToNumberTR.put("milyar", BigInteger.valueOf(1000000000));
+		bigWordToNumberTR.put("trilyon", BigInteger.valueOf(1000000000000L));
+		bigWordToNumberTR.put("katrilyon", BigInteger.valueOf(1000000000000000L));
+		bigWordToNumberTR.put("kentrilyon", BigInteger.valueOf(1000000000000000000L));
+		bigWordToNumberTR.put("sekstilyon", new BigInteger("1000000000000000000000"));
+		bigWordToNumberTR.put("septilyon", new BigInteger("1000000000000000000000000"));
+		bigWordToNumberTR.put("oktilyon", new BigInteger("1000000000000000000000000000"));
+		bigWordToNumberTR.put("nonilyon", new BigInteger("1000000000000000000000000000000"));
+		bigWordToNumberTR.put("desilyon", new BigInteger("1000000000000000000000000000000000"));
 
 		// Initialize bigger translation maps for English
 		bigNumberToWordEN = new HashMap<>();
 		bigWordToNumberEN = new HashMap<>();
 
-		bigNumberToWordEN.put(100, "hundred");
-		bigNumberToWordEN.put(1000, "thousand");
-		bigNumberToWordEN.put(1000000, "million");
-		bigNumberToWordEN.put(1000000000, "billion");
+		bigNumberToWordEN.put(BigInteger.valueOf(100), "hundred");
+		bigNumberToWordEN.put(BigInteger.valueOf(1000), "thousand");
+		bigNumberToWordEN.put(BigInteger.valueOf(1000000), "million");
+		bigNumberToWordEN.put(BigInteger.valueOf(1000000000), "billion");
+		bigNumberToWordEN.put(BigInteger.valueOf(1000000000000L), "trillion");
+		bigNumberToWordEN.put(BigInteger.valueOf(1000000000000000L), "quadrillion");
+		bigNumberToWordEN.put(BigInteger.valueOf(1000000000000000000L), "quintillion");
+		bigNumberToWordEN.put(new BigInteger("1000000000000000000000"), "sextillion");
+		bigNumberToWordEN.put(new BigInteger("1000000000000000000000000"), "septillion");
+		bigNumberToWordEN.put(new BigInteger("1000000000000000000000000000"), "octillion");
+		bigNumberToWordEN.put(new BigInteger("1000000000000000000000000000000"), "nonillion");
+		bigNumberToWordEN.put(new BigInteger("1000000000000000000000000000000000"), "decillion");
 
-		bigWordToNumberEN.put("hundred", 100);
-		bigWordToNumberEN.put("thousand", 1000);
-		bigWordToNumberEN.put("million", 1000000);
-		bigWordToNumberEN.put("billion", 1000000000);
+		bigWordToNumberEN.put("hundred", BigInteger.valueOf(100));
+		bigWordToNumberEN.put("thousand", BigInteger.valueOf(1000));
+		bigWordToNumberEN.put("million", BigInteger.valueOf(1000000));
+		bigWordToNumberEN.put("billion", BigInteger.valueOf(1000000000));
+		bigWordToNumberEN.put("trillion", BigInteger.valueOf(1000000000000L));
+		bigWordToNumberEN.put("quadrillion", BigInteger.valueOf(1000000000000000L));
+		bigWordToNumberEN.put("quintillion", BigInteger.valueOf(1000000000000000000L));
+		bigWordToNumberEN.put("sextillion", new BigInteger("1000000000000000000000"));
+		bigWordToNumberEN.put("septillion", new BigInteger("1000000000000000000000000"));
+		bigWordToNumberEN.put("octillion", new BigInteger("1000000000000000000000000000"));
+		bigWordToNumberEN.put("nonillion", new BigInteger("1000000000000000000000000000000"));
+		bigWordToNumberEN.put("decillion", new BigInteger("1000000000000000000000000000000000"));
 
 	}
 
-	public String numberToWord(int number, String locale) {
-		//Converts numbers into words with selected language
-		
-		Map<Integer, String> numberToWordMap = null;
+	public String numberToWord(BigInteger number, String locale) {
+		// Converts numbers into words with selected language
+
+		Map<BigInteger, String> numberToWordMap = null;
 		if (locale.equals(turkishLocale)) {
 			numberToWordMap = getNumberToWordMapTR();
 		} else if (locale.equals(englishLocale)) {
@@ -171,76 +208,159 @@ public class TranslatorService implements ITranslator {
 
 		StringBuilder words = new StringBuilder();
 
-		//Checking HashMap if the number is 0, negative or bigger digit
-		if (number == 0) {
+		// Checking HashMap if the number is 0, negative or bigger digit
+		if (number.equals(BigInteger.ZERO)) {
 			words.append(numberToWordMap.get(number));
-		} else if (number < 0) {
+		} else if (number.compareTo(BigInteger.ZERO) < 0) {
 			if (locale.equals(turkishLocale)) {
 				words.append("eksi ");
 			} else {
 				words.append("minus ");
 			}
-			words.append(numberToWord(Math.abs(number), locale));
-		} else if ((number / 1000000000) > 0) {
-			words.append(numberToWord(number / 1000000000, locale));
+			words.append(numberToWord(number.abs(), locale));
+		} else if ((number.divide(new BigInteger("1000000000000000000000000000000000"))
+				.compareTo(BigInteger.ZERO)) > 0) {
+			words.append(numberToWord(number.divide(new BigInteger("1000000000000000000000000000000000")), locale));
+			if (locale.equals(turkishLocale)) {
+				words.append(" desilyon ");
+			} else {
+				words.append(" decillion ");
+			}
+			if (!isModZero(number, new BigInteger("1000000000000000000000000000000000"))) {
+				words.append(numberToWord(number.mod(new BigInteger("1000000000000000000000000000000000")), locale));
+			}
+		} else if ((number.divide(new BigInteger("1000000000000000000000000000000")).compareTo(BigInteger.ZERO)) > 0) {
+			words.append(numberToWord(number.divide(new BigInteger("1000000000000000000000000000000")), locale));
+			if (locale.equals(turkishLocale)) {
+				words.append(" nonilyon ");
+			} else {
+				words.append(" nonillion ");
+			}
+			if (!isModZero(number, new BigInteger("1000000000000000000000000000000"))) {
+				words.append(numberToWord(number.mod(new BigInteger("1000000000000000000000000000000")), locale));
+			}
+		} else if ((number.divide(new BigInteger("1000000000000000000000000000")).compareTo(BigInteger.ZERO)) > 0) {
+			words.append(numberToWord(number.divide(new BigInteger("1000000000000000000000000000")), locale));
+			if (locale.equals(turkishLocale)) {
+				words.append(" oktilyon ");
+			} else {
+				words.append(" octillion ");
+			}
+			if (!isModZero(number, new BigInteger("1000000000000000000000000000"))) {
+				words.append(numberToWord(number.mod(new BigInteger("1000000000000000000000000000")), locale));
+			}
+		} else if ((number.divide(new BigInteger("1000000000000000000000000")).compareTo(BigInteger.ZERO)) > 0) {
+			words.append(numberToWord(number.divide(new BigInteger("1000000000000000000000000")), locale));
+			if (locale.equals(turkishLocale)) {
+				words.append(" septilyon ");
+			} else {
+				words.append(" septillion ");
+			}
+			if (!isModZero(number, new BigInteger("1000000000000000000000000"))) {
+				words.append(numberToWord(number.mod(new BigInteger("1000000000000000000000000")), locale));
+			}
+		} else if ((number.divide(new BigInteger("1000000000000000000000")).compareTo(BigInteger.ZERO)) > 0) {
+			words.append(numberToWord(number.divide(new BigInteger("1000000000000000000000")), locale));
+			if (locale.equals(turkishLocale)) {
+				words.append(" sekstilyon ");
+			} else {
+				words.append(" sextillion ");
+			}
+			if (!isModZero(number, new BigInteger("1000000000000000000000"))) {
+				words.append(numberToWord(number.mod(new BigInteger("1000000000000000000000")), locale));
+			}
+		} else if ((number.divide(BigInteger.valueOf(1000000000000000000L)).compareTo(BigInteger.ZERO)) > 0) {
+			words.append(numberToWord(number.divide(BigInteger.valueOf(1000000000000000000L)), locale));
+			if (locale.equals(turkishLocale)) {
+				words.append(" kentrilyon ");
+			} else {
+				words.append(" quintillion ");
+			}
+			if (!isModZero(number, BigInteger.valueOf(1000000000000000000L))) {
+				words.append(numberToWord(number.mod(BigInteger.valueOf(1000000000000000000L)), locale));
+			}
+		} else if ((number.divide(BigInteger.valueOf(1000000000000000L)).compareTo(BigInteger.ZERO)) > 0) {
+			words.append(numberToWord(number.divide(BigInteger.valueOf(1000000000000000L)), locale));
+			if (locale.equals(turkishLocale)) {
+				words.append(" katrilyon ");
+			} else {
+				words.append(" quadrillion ");
+			}
+			if (!isModZero(number, BigInteger.valueOf(1000000000000000L))) {
+				words.append(numberToWord(number.mod(BigInteger.valueOf(1000000000000000L)), locale));
+			}
+		} else if ((number.divide(BigInteger.valueOf(1000000000000L)).compareTo(BigInteger.ZERO)) > 0) {
+			words.append(numberToWord(number.divide(BigInteger.valueOf(1000000000000L)), locale));
+			if (locale.equals(turkishLocale)) {
+				words.append(" trilyon ");
+			} else {
+				words.append(" trillion ");
+			}
+			if (!isModZero(number, BigInteger.valueOf(1000000000000L))) {
+				words.append(numberToWord(number.mod(BigInteger.valueOf(1000000000000L)), locale));
+			}
+		} else if ((number.divide(BigInteger.valueOf(1000000000)).compareTo(BigInteger.ZERO)) > 0) {
+			words.append(numberToWord(number.divide(BigInteger.valueOf(1000000000)), locale));
 			if (locale.equals(turkishLocale)) {
 				words.append(" milyar ");
 			} else {
 				words.append(" billion ");
 			}
-			if (!isModZero(number, 1000000000)) {
-				words.append(numberToWord(number % 1000000000, locale));
+			if (!isModZero(number, BigInteger.valueOf(1000000000))) {
+				words.append(numberToWord(number.mod(BigInteger.valueOf(1000000000)), locale));
 			}
-		} else if ((number / 1000000) > 0) {
-			words.append(numberToWord(number / 1000000, locale));
+		} else if ((number.divide(BigInteger.valueOf(1000000)).compareTo(BigInteger.ZERO)) > 0) {
+			words.append(numberToWord(number.divide(BigInteger.valueOf(1000000)), locale));
 			if (locale.equals(turkishLocale)) {
 				words.append(" milyon ");
 			} else {
 				words.append(" million ");
 			}
-			if (!isModZero(number, 1000000)) {
-				words.append(numberToWord(number % 1000000, locale));
+			if (!isModZero(number, BigInteger.valueOf(1000000))) {
+				words.append(numberToWord(number.mod(BigInteger.valueOf(1000000)), locale));
 			}
-		} else if ((number / 1000) > 0) {
-			words.append(numberToWord(number / 1000, locale));
+		} else if ((number.divide(BigInteger.valueOf(1000)).compareTo(BigInteger.ZERO)) > 0) {
+			words.append(numberToWord(number.divide(BigInteger.valueOf(1000)), locale));
 			if (locale.equals(turkishLocale)) {
 				words.append(" bin ");
 			} else {
 				words.append(" thousand ");
 			}
-			if (!isModZero(number, 1000)) {
-				words.append(numberToWord(number % 1000, locale));
+			if (!isModZero(number, BigInteger.valueOf(1000))) {
+				words.append(numberToWord(number.mod(BigInteger.valueOf(1000)), locale));
 			}
-		} else if ((number / 100) > 0) {
-			words.append(numberToWord(number / 100, locale));
+		} else if ((number.divide(BigInteger.valueOf(100)).compareTo(BigInteger.ZERO)) > 0) {
+			words.append(numberToWord(number.divide(BigInteger.valueOf(100)), locale));
 			if (locale.equals(turkishLocale)) {
 				words.append(" yüz ");
 			} else {
 				words.append(" hundred ");
 			}
-			if (!isModZero(number, 100)) {
-				words.append(numberToWord(number % 100, locale));
+			if (!isModZero(number, BigInteger.valueOf(100))) {
+				words.append(numberToWord(number.mod(BigInteger.valueOf(100)), locale));
 			}
-		} else if ((number / 10) > 0) {
+		} else if ((number.divide(BigInteger.valueOf(10)).compareTo(BigInteger.ZERO)) > 0) {
 			if (locale.equals(turkishLocale)) {
-				words.append(getNumberToWordMapTR().get((number / 10) * 10));
+				words.append(getNumberToWordMapTR()
+						.get(number.divide(BigInteger.valueOf(10)).multiply(BigInteger.valueOf(10))));
 				words.append(" ");
-				if (!isModZero(number, 10)) {
-					words.append(numberToWord(number % 10, locale));
+				if (!isModZero(number, BigInteger.TEN)) {
+					words.append(numberToWord(number.mod(BigInteger.TEN), locale));
 				}
 
 			} else {
 				if (isNumberBetween(number)) {
 					words.append(getNumberToWordMapEN().get(number));
-					
-				}else {
-					words.append(getNumberToWordMapEN().get((number / 10) * 10));
+
+				} else {
+					words.append(getNumberToWordMapEN()
+							.get(number.divide(BigInteger.valueOf(10)).multiply(BigInteger.valueOf(10))));
 					words.append(" ");
-					if (!isModZero(number, 10)) {
-						words.append(numberToWord(number % 10, locale));
+					if (!isModZero(number, BigInteger.TEN)) {
+						words.append(numberToWord(number.mod(BigInteger.TEN), locale));
 					}
 				}
-				
+
 			}
 			words.append(" ");
 		} else {
@@ -256,48 +376,80 @@ public class TranslatorService implements ITranslator {
 	}
 
 	@Override
-	public double wordToNumber(String words, String locale) {
+	public BigInteger wordToNumber(String words, String locale) {
 
-		Map<String, Integer> wordToNumberMap = null;
+		Map<String, BigInteger> wordToNumberMap = null;
 		if (locale.equals(turkishLocale)) {
 			wordToNumberMap = wordToNumberMapTR;
 		} else if (locale.equals(englishLocale)) {
 			wordToNumberMap = wordToNumberMapEN;
 		} else {
-			return 0;
+			return BigInteger.ZERO;
 		}
 
-		//Seperates words and puts into Array
+		// Seperates words and puts into Array
 		String[] wordArray = words.split(" ");
 
-		double number = 0;
-		double temp = 0;
+		BigInteger number = new BigInteger("0");
+		BigInteger temp = new BigInteger("0");
 		int negativeNumberCount = 0;
 
-		//Converting String number into integer
+		// Converting String number into integer
 		for (String word : wordArray) {
-			Integer value = wordToNumberMap.get(word);
+			BigInteger value = wordToNumberMap.get(word);
 			if (value != null) {
-				temp += value;
-			} else if (word.equals("yüz") || word.equals("hundred")) {
-				if (wordArray[0].equals("yüz")) {
-					temp = 100;
+				temp = temp.add(value);
+			} else if (word.toLowerCase().equals("yüz") || word.toLowerCase().equals("hundred")) {
+				if (wordArray[0].toLowerCase().equals("yüz")) {
+					temp = BigInteger.valueOf(100);
 				} else {
-					temp *= 100;
+					temp = temp.multiply(BigInteger.valueOf(100));
 				}
-			} else if (word.equals("bin") || word.equals("thousand")) {
-				temp *= 1000;
-				number += temp;
-				temp = 0;
-			} else if (word.equals("milyon") || word.equals("million")) {
-				temp *= 1000000;
-				number += temp;
-				temp = 0;
-			} else if (word.equals("milyar") || word.equals("billion")) {
-				temp *= 1000000000;
-				number += temp;
-				temp = 0;
-			} else if (word.equals("eksi") || word.equals("minus")) {
+			} else if (word.toLowerCase().equals("bin") || word.toLowerCase().equals("thousand")) {
+				temp = temp.multiply(BigInteger.valueOf(1000));
+				number = number.add(temp);
+				temp = BigInteger.ZERO;
+			} else if (word.toLowerCase().equals("milyon") || word.toLowerCase().equals("million")) {
+				temp = temp.multiply(BigInteger.valueOf(1000000));
+				number = number.add(temp);
+				temp = BigInteger.ZERO;
+			} else if (word.toLowerCase().equals("milyar") || word.toLowerCase().equals("billion")) {
+				temp = temp.multiply(BigInteger.valueOf(1000000000));
+				number = number.add(temp);
+				temp = BigInteger.ZERO;
+			}else if (word.toLowerCase().equals("trilyon") || word.toLowerCase().equals("trillion")) {
+				temp = temp.multiply(BigInteger.valueOf(1000000000000L));
+				number = number.add(temp);
+				temp = BigInteger.ZERO;
+			}else if (word.toLowerCase().equals("katrilyon") || word.toLowerCase().equals("quadrillion")) {
+				temp = temp.multiply(BigInteger.valueOf(1000000000000000L));
+				number = number.add(temp);
+				temp = BigInteger.ZERO;
+			}else if (word.toLowerCase().equals("kentrilyon") || word.toLowerCase().equals("quintillion")) {
+				temp = temp.multiply(BigInteger.valueOf(1000000000000000000L));
+				number = number.add(temp);
+				temp = BigInteger.ZERO;
+			}else if (word.toLowerCase().equals("sekstilyon") || word.toLowerCase().equals("sextillion")) {
+				temp = temp.multiply(new BigInteger("1000000000000000000000"));
+				number = number.add(temp);
+				temp = BigInteger.ZERO;
+			}else if (word.toLowerCase().equals("septilyon") || word.toLowerCase().equals("septillion")) {
+				temp = temp.multiply(new BigInteger("1000000000000000000000000"));
+				number = number.add(temp);
+				temp = BigInteger.ZERO;
+			}else if (word.toLowerCase().equals("oktilyon") || word.toLowerCase().equals("octillion")) {
+				temp = temp.multiply(new BigInteger("1000000000000000000000000000"));
+				number = number.add(temp);
+				temp = BigInteger.ZERO;
+			}else if (word.toLowerCase().equals("nonilyon") || word.toLowerCase().equals("nonillion")) {
+				temp = temp.multiply(new BigInteger("1000000000000000000000000000000"));
+				number = number.add(temp);
+				temp = BigInteger.ZERO;
+			}else if (word.toLowerCase().equals("desilyon") || word.toLowerCase().equals("decillion")) {
+				temp = temp.multiply(new BigInteger("1000000000000000000000000000000000"));
+				number = number.add(temp);
+				temp = BigInteger.ZERO;
+			} else if (word.toLowerCase().equals("eksi") || word.toLowerCase().equals("minus")) {
 				// temp *= -1;
 				negativeNumberCount = 1;
 			} else {
@@ -305,65 +457,66 @@ public class TranslatorService implements ITranslator {
 			}
 		}
 
-		number += temp;
+		number = number.add(temp);
 
 		// if number is negative return with number*-1
 		if (negativeNumberCount == 1) {
-			return number * (-1);
+			return number.multiply(BigInteger.valueOf(-1));
 		}
 		return number;
 
 	}
 
-	private boolean isNumberBetween(int number) {
-		//checking if the EN number is between 10 and 20 because it has it's own word unlike Turkish (eleven , twelve ...)
-		if (10 < number && number < 20) {
+	private boolean isNumberBetween(BigInteger number) {
+		// checking if the EN number is between 10 and 20 because it has it's own word
+		// unlike Turkish (eleven , twelve ...)
+		if (number.compareTo(BigInteger.valueOf(10)) > 0 && BigInteger.valueOf(20).compareTo(number) > 0) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
-		
+
 	}
-	
-	private boolean isModZero(int number1, int number2) {
-		//Checking if the number1 %(mod) number2 is 0
-		if (number1 % number2 == 0) {
+
+	private boolean isModZero(BigInteger number1, BigInteger number2) {
+		// Checking if the number1 %(mod) number2 is 0
+		if (number1.mod(number2).equals(BigInteger.ZERO)) {
 			return true;
 		} else
 			return false;
 
 	}
 
-	//Getter and setters for HashMaps
-	public Map<Integer, String> getNumberToWordMapTR() {
+	// Getter and setters for HashMaps
+	public Map<BigInteger, String> getNumberToWordMapTR() {
 		return numberToWordMapTR;
 	}
 
-	public void setNumberToWordMapTR(Map<Integer, String> numberToWordMapTR) {
+	public void setNumberToWordMapTR(Map<BigInteger, String> numberToWordMapTR) {
 		this.numberToWordMapTR = numberToWordMapTR;
 	}
 
-	public Map<Integer, String> getNumberToWordMapEN() {
+	public Map<BigInteger, String> getNumberToWordMapEN() {
 		return numberToWordMapEN;
 	}
 
-	public void setNumberToWordMapEN(Map<Integer, String> numberToWordMapEN) {
+	public void setNumberToWordMapEN(Map<BigInteger, String> numberToWordMapEN) {
 		this.numberToWordMapEN = numberToWordMapEN;
 	}
 
-	public Map<Integer, String> getBigNumberToWordTR() {
+	public Map<BigInteger, String> getBigNumberToWordTR() {
 		return bigNumberToWordTR;
 	}
 
-	public void setBigNumberToWordTR(Map<Integer, String> bigNumberToWordTR) {
+	public void setBigNumberToWordTR(Map<BigInteger, String> bigNumberToWordTR) {
 		this.bigNumberToWordTR = bigNumberToWordTR;
 	}
 
-	public Map<Integer, String> getBigNumberToWordEN() {
+	public Map<BigInteger, String> getBigNumberToWordEN() {
 		return bigNumberToWordEN;
 	}
 
-	public void setBigNumberToWordEN(Map<Integer, String> bigNumberToWordEN) {
+	public void setBigNumberToWordEN(Map<BigInteger, String> bigNumberToWordEN) {
 		this.bigNumberToWordEN = bigNumberToWordEN;
 	}
 

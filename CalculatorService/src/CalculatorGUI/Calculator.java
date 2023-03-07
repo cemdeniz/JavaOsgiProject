@@ -3,9 +3,10 @@ package CalculatorGUI;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
+import java.math.BigInteger;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -47,7 +48,6 @@ public class Calculator extends JFrame implements ActionListener {
 	private Locale currentLocale;
 
 	public Calculator() {
-		
 		// Setting up default UI
 		super("Calculator");
 		setSize(940, 200);
@@ -146,7 +146,7 @@ public class Calculator extends JFrame implements ActionListener {
 
 	private String getNumber1(Locale currentLocale) {
 		// Checks if the first input string is in our HashMaps, (if true) returns the String
-		String number1 = number1Field.getText();
+		String number1 = number1Field.getText().toLowerCase();
 		if (!isNull(number1) && !isEmpty(number1)) {
 			String[] wordArray = number1.split(" ");
 			
@@ -183,7 +183,7 @@ public class Calculator extends JFrame implements ActionListener {
 
 	private String getNumber2(Locale currentLocale) {
 		// Checks if the second input string is in our HashMaps, (if true) returns the String
-		String number2 = number2Field.getText();
+		String number2 = number2Field.getText().toLowerCase();
 		if (!isNull(number2) && !isEmpty(number2)) {
 			String[] word2Array = number2.split(" ");
 			
@@ -219,8 +219,9 @@ public class Calculator extends JFrame implements ActionListener {
 	}
 
 	private void setResult(String result) {	
-		//Setting the result in UI
-		resultField.setText(eraseElement(result));
+		
+		//Setting the result in UI, with replaceAll erasing extra " " (space) between words.
+		resultField.setText(result.replaceAll("\\s+", " "));
 	}
 
 	@Override
@@ -228,9 +229,9 @@ public class Calculator extends JFrame implements ActionListener {
 		// 4 operation button listener
 		
 		String actionCommand = e.getActionCommand();
-		double num1 = 0;
-		double num2 = 0;
-		double mathResult = 0;
+		BigInteger num1 = new BigInteger("0");
+		BigInteger num2 = new BigInteger("0");
+		BigInteger mathResult = new BigInteger("0");
 		number1 = getNumber1(currentLocale);
 		number2 = getNumber2(currentLocale);
 
@@ -272,17 +273,17 @@ public class Calculator extends JFrame implements ActionListener {
 		if (currentLocale.getLanguage().equals("tr")) {
 			JOptionPane.showMessageDialog(null,
 					"Sayılar yazı şeklinde girilmeli.\n" + "Girdiğiniz yazı dil ile uyumlu olmalı.\n"
-							+ "Girdiğiniz sayı ve işlem sonucunuz Integer aralığında olmalı.\n",
+							+ "Tanımsız sayı girmeyiniz.\n",
 					"Java OSGi Application ", JOptionPane.ERROR_MESSAGE);
 		} else {
 			JOptionPane.showMessageDialog(null,
 					"Please enter numbers in String form.\n" + "Your entry should match with language.\n"
-							+ "Your number and result should be Integer.",
+							+ "Your operation result can't be undefined",
 					"Java OSGi Application ", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
-	private void additionTopla(String number1, String number2, double num1, double num2, double mathResult) {
+	private void additionTopla(String number1, String number2, BigInteger num1, BigInteger num2, BigInteger mathResult) {
 		//Calls translatorService.wordToNumber for converting the words into numbers to do math operation.
 		//After operation calls translatorService.numberToWord to convert result into words to show result.
 		
@@ -294,12 +295,11 @@ public class Calculator extends JFrame implements ActionListener {
 		}
 		if (!isNull(number1) && !isNull(number2)) {
 			
-			mathResult = num1 + num2;
-			if (isIntegerInterval(mathResult)) {
-				result = translatorService.numberToWord((int) num1 + (int) num2, currentLocale.toString());
-			} else {
-				showWarning(currentLocale);
-			}
+			//calculating the math operation
+			mathResult = num1.add(num2);
+			//sending result to return as Words
+			result = translatorService.numberToWord(mathResult, currentLocale.toString());
+			
 		} else {
 
 			showWarning(currentLocale);
@@ -307,7 +307,7 @@ public class Calculator extends JFrame implements ActionListener {
 
 	}
 
-	private void subtractionCikar(String number1, String number2, double num1, double num2, double mathResult) {
+	private void subtractionCikar(String number1, String number2, BigInteger num1, BigInteger num2, BigInteger mathResult) {
 
 		if (!isNull(number1)) {
 			num1 = translatorService.wordToNumber(number1, currentLocale.toString());
@@ -316,20 +316,18 @@ public class Calculator extends JFrame implements ActionListener {
 			num2 = translatorService.wordToNumber(number2, currentLocale.toString());
 		}
 		if (!isNull(number1) && !isNull(number2)) {
-			//checking if operation result is Integer
-			mathResult = num1 - num2;
-			if (isIntegerInterval(mathResult)) {
-				result = translatorService.numberToWord((int) num1 - (int) num2, currentLocale.toString());
-			} else {
-				showWarning(currentLocale);
-			}
+
+			//calculating the math operation
+			mathResult = num1.subtract(num2);
+			//sending result to return as Words
+			result = translatorService.numberToWord(mathResult, currentLocale.toString());
 		} else {
 
 			showWarning(currentLocale);
 		}
 	}
 
-	private void multiplyCarp(String number1, String number2, double num1, double num2, double mathResult) {
+	private void multiplyCarp(String number1, String number2, BigInteger num1, BigInteger num2, BigInteger mathResult) {
 
 		if (!isNull(number1)) {
 			num1 = translatorService.wordToNumber(number1, currentLocale.toString());
@@ -338,13 +336,10 @@ public class Calculator extends JFrame implements ActionListener {
 			num2 = translatorService.wordToNumber(number2, currentLocale.toString());
 		}
 		if (!isNull(number1) && !isNull(number2)) {
-			//checking if operation result is Integer
-			mathResult = num1 * num2;
-			if (isIntegerInterval(mathResult)) {
-				result = translatorService.numberToWord((int) num1 * (int) num2, currentLocale.toString());
-			} else {
-				showWarning(currentLocale);
-			}
+			//calculating the math operation
+			mathResult = num1.multiply(num2);
+			//sending result to return as Words
+			result = translatorService.numberToWord(mathResult, currentLocale.toString());
 		} else {
 			showWarning(currentLocale);
 		}
@@ -358,7 +353,7 @@ public class Calculator extends JFrame implements ActionListener {
 
 	}
 
-	private void divisionBol(String number1, String number2, double num1, double num2, double mathResult) {
+	private void divisionBol(String number1, String number2, BigInteger num1, BigInteger num2, BigInteger mathResult) {
 		if (!isNull(number1)) {
 			num1 = translatorService.wordToNumber(number1, currentLocale.toString());
 		}
@@ -366,32 +361,20 @@ public class Calculator extends JFrame implements ActionListener {
 			num2 = translatorService.wordToNumber(number2, currentLocale.toString());
 		}
 		
-		// If num2 is 0 in division, result is undefined: number/0 = "undefined"
+		 //If num2 is 0 in division, result is undefined: number/0 = "undefined"
 		if (!isEmpty(isUndefined(num2, currentLocale))) {
-			setResult(isUndefined(num2, currentLocale));
+			result = isUndefined(num2, currentLocale);
 		}
 		
-		if (!isNull(number1) && !isNull(number2)) {
-			//checking if operation result is Integer
-			mathResult = num1 / num2;
-			if (isIntegerInterval(mathResult)) {
-				result = translatorService.numberToWord((int) num1 / (int) num2, currentLocale.toString());
-			} else {
-				showWarning(currentLocale);
-			}
+		if (!isNull(number1) && !isNull(number2) && isEmpty(isUndefined(num2, currentLocale))) {
+			//calculating the math operation			
+			mathResult = num1.divide(num2);
+			//sending result to return as Words
+			result = translatorService.numberToWord(mathResult, currentLocale.toString());
 		} else {
 			showWarning(currentLocale);
 		}
 		
-	}
-
-	private boolean isIntegerInterval(double number) {
-		//checking if operation result is in integer interval -2147483648< ... <2147483647
-		if (number < 2147483647 && -2147483648 < number) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	private boolean isNull(String number) {
@@ -410,18 +393,18 @@ public class Calculator extends JFrame implements ActionListener {
 		return false;
 	}
 
-	private String isUndefined(double number, Locale currentLocale) {
+	private String isUndefined(BigInteger number, Locale currentLocale) {
 		//cheking if the number is undefined
 		String result = "";
-		if (number == 0.0 && currentLocale.getLanguage().equals("tr")) {
+		if (number.equals(BigInteger.ZERO) && currentLocale.getLanguage().equals("tr")) {
 			result = "Tanımsız";
-		} else if (number == 0.0 && currentLocale.getLanguage().equals("en")) {
+		} else if (number.equals(BigInteger.ZERO) && currentLocale.getLanguage().equals("en")) {
 			result = "Undefined";
 		}
 		return result;
 	}
 	
-	private String eraseElement(String result) {
+	/*private String eraseElement(String result) {
 		//Removing the "bir" right before "yüz". This way TR result is more readable for some cases.
 		StringBuilder words = new StringBuilder();
 
@@ -444,6 +427,6 @@ public class Calculator extends JFrame implements ActionListener {
 		
 		return words.toString();
 		
-	}
+	}*/
 
 }
