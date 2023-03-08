@@ -12,6 +12,8 @@ The application is be able to support Turkish and English languages, with Turkis
 
 Note: if you multiply decillion number with another decillion number, you'll get "number decillion decillion" which means (number x decillion exponent decillion).
 
+Note2: Removed the "bir" right before "yüz" in the result. This way TR result is more readable for some cases.
+
 ![osgiApp](https://user-images.githubusercontent.com/29862339/222452980-7a6bbf97-e906-477f-aadc-97e425d73761.png)
 
 How to import?
