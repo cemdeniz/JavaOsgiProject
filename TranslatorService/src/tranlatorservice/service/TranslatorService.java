@@ -20,6 +20,12 @@ public class TranslatorService implements ITranslator {
 	private Map<String, BigInteger> wordToNumberMapEN;
 	private Map<BigInteger, String> bigNumberToWordEN;
 	private Map<String, BigInteger> bigWordToNumberEN;
+	
+	private static final String decillion = "1000000000000000000000000000000000";
+	private static final String nonillion = "1000000000000000000000000000000";
+	private static final String octillion = "1000000000000000000000000000";
+	private static final String septillion = "1000000000000000000000000";
+	private static final String sextillion = "1000000000000000000000";
 
 	public TranslatorService() {
 		createHashMap();
@@ -144,11 +150,11 @@ public class TranslatorService implements ITranslator {
 		getBigNumberToWordTR().put(BigInteger.valueOf(1000000000000L), "trilyon");
 		getBigNumberToWordTR().put(BigInteger.valueOf(1000000000000000L), "katrilyon");
 		getBigNumberToWordTR().put(BigInteger.valueOf(1000000000000000000L), "kentrilyon");
-		getBigNumberToWordTR().put(new BigInteger("1000000000000000000000"), "sekstilyon");
-		getBigNumberToWordTR().put(new BigInteger("1000000000000000000000000"), "septilyon");
-		getBigNumberToWordTR().put(new BigInteger("1000000000000000000000000000"), "oktilyon");
-		getBigNumberToWordTR().put(new BigInteger("1000000000000000000000000000000"), "nonilyon");
-		getBigNumberToWordTR().put(new BigInteger("1000000000000000000000000000000000"), "desilyon");
+		getBigNumberToWordTR().put(new BigInteger(sextillion), "sekstilyon");
+		getBigNumberToWordTR().put(new BigInteger(septillion), "septilyon");
+		getBigNumberToWordTR().put(new BigInteger(octillion), "oktilyon");
+		getBigNumberToWordTR().put(new BigInteger(nonillion), "nonilyon");
+		getBigNumberToWordTR().put(new BigInteger(decillion), "desilyon");
 
 		bigWordToNumberTR.put("yüz", BigInteger.valueOf(100));
 		bigWordToNumberTR.put("bin", BigInteger.valueOf(1000));
@@ -157,11 +163,11 @@ public class TranslatorService implements ITranslator {
 		bigWordToNumberTR.put("trilyon", BigInteger.valueOf(1000000000000L));
 		bigWordToNumberTR.put("katrilyon", BigInteger.valueOf(1000000000000000L));
 		bigWordToNumberTR.put("kentrilyon", BigInteger.valueOf(1000000000000000000L));
-		bigWordToNumberTR.put("sekstilyon", new BigInteger("1000000000000000000000"));
-		bigWordToNumberTR.put("septilyon", new BigInteger("1000000000000000000000000"));
-		bigWordToNumberTR.put("oktilyon", new BigInteger("1000000000000000000000000000"));
-		bigWordToNumberTR.put("nonilyon", new BigInteger("1000000000000000000000000000000"));
-		bigWordToNumberTR.put("desilyon", new BigInteger("1000000000000000000000000000000000"));
+		bigWordToNumberTR.put("sekstilyon", new BigInteger(sextillion));
+		bigWordToNumberTR.put("septilyon", new BigInteger(septillion));
+		bigWordToNumberTR.put("oktilyon", new BigInteger(octillion));
+		bigWordToNumberTR.put("nonilyon", new BigInteger(nonillion));
+		bigWordToNumberTR.put("desilyon", new BigInteger(decillion));
 
 		// Initialize bigger translation maps for English
 		bigNumberToWordEN = new HashMap<>();
@@ -174,11 +180,11 @@ public class TranslatorService implements ITranslator {
 		bigNumberToWordEN.put(BigInteger.valueOf(1000000000000L), "trillion");
 		bigNumberToWordEN.put(BigInteger.valueOf(1000000000000000L), "quadrillion");
 		bigNumberToWordEN.put(BigInteger.valueOf(1000000000000000000L), "quintillion");
-		bigNumberToWordEN.put(new BigInteger("1000000000000000000000"), "sextillion");
-		bigNumberToWordEN.put(new BigInteger("1000000000000000000000000"), "septillion");
-		bigNumberToWordEN.put(new BigInteger("1000000000000000000000000000"), "octillion");
-		bigNumberToWordEN.put(new BigInteger("1000000000000000000000000000000"), "nonillion");
-		bigNumberToWordEN.put(new BigInteger("1000000000000000000000000000000000"), "decillion");
+		bigNumberToWordEN.put(new BigInteger(sextillion), "sextillion");
+		bigNumberToWordEN.put(new BigInteger(septillion), "septillion");
+		bigNumberToWordEN.put(new BigInteger(octillion), "octillion");
+		bigNumberToWordEN.put(new BigInteger(nonillion), "nonillion");
+		bigNumberToWordEN.put(new BigInteger(decillion), "decillion");
 
 		bigWordToNumberEN.put("hundred", BigInteger.valueOf(100));
 		bigWordToNumberEN.put("thousand", BigInteger.valueOf(1000));
@@ -187,17 +193,19 @@ public class TranslatorService implements ITranslator {
 		bigWordToNumberEN.put("trillion", BigInteger.valueOf(1000000000000L));
 		bigWordToNumberEN.put("quadrillion", BigInteger.valueOf(1000000000000000L));
 		bigWordToNumberEN.put("quintillion", BigInteger.valueOf(1000000000000000000L));
-		bigWordToNumberEN.put("sextillion", new BigInteger("1000000000000000000000"));
-		bigWordToNumberEN.put("septillion", new BigInteger("1000000000000000000000000"));
-		bigWordToNumberEN.put("octillion", new BigInteger("1000000000000000000000000000"));
-		bigWordToNumberEN.put("nonillion", new BigInteger("1000000000000000000000000000000"));
-		bigWordToNumberEN.put("decillion", new BigInteger("1000000000000000000000000000000000"));
+		bigWordToNumberEN.put("sextillion", new BigInteger(sextillion));
+		bigWordToNumberEN.put("septillion", new BigInteger(septillion));
+		bigWordToNumberEN.put("octillion", new BigInteger(octillion));
+		bigWordToNumberEN.put("nonillion", new BigInteger(nonillion));
+		bigWordToNumberEN.put("decillion", new BigInteger(decillion));
 
 	}
 
 	public String numberToWord(BigInteger number, String locale) {
+		
+		StringBuilder words = new StringBuilder();
+		
 		// Converts numbers into words with selected language
-
 		Map<BigInteger, String> numberToWordMap = null;
 		if (locale.equals(turkishLocale)) {
 			numberToWordMap = getNumberToWordMapTR();
@@ -206,7 +214,6 @@ public class TranslatorService implements ITranslator {
 		} else {
 		}
 
-		StringBuilder words = new StringBuilder();
 
 		// Checking HashMap if the number is 0, negative or bigger digit
 		if (number.equals(BigInteger.ZERO)) {
@@ -218,56 +225,56 @@ public class TranslatorService implements ITranslator {
 				words.append("minus ");
 			}
 			words.append(numberToWord(number.abs(), locale));
-		} else if ((number.divide(new BigInteger("1000000000000000000000000000000000"))
+		} else if ((number.divide(new BigInteger(decillion))
 				.compareTo(BigInteger.ZERO)) > 0) {
-			words.append(numberToWord(number.divide(new BigInteger("1000000000000000000000000000000000")), locale));
+			words.append(numberToWord(number.divide(new BigInteger(decillion)), locale));
 			if (locale.equals(turkishLocale)) {
 				words.append(" desilyon ");
 			} else {
 				words.append(" decillion ");
 			}
-			if (!isModZero(number, new BigInteger("1000000000000000000000000000000000"))) {
-				words.append(numberToWord(number.mod(new BigInteger("1000000000000000000000000000000000")), locale));
+			if (!isModZero(number, new BigInteger(decillion))) {
+				words.append(numberToWord(number.mod(new BigInteger(decillion)), locale));
 			}
-		} else if ((number.divide(new BigInteger("1000000000000000000000000000000")).compareTo(BigInteger.ZERO)) > 0) {
-			words.append(numberToWord(number.divide(new BigInteger("1000000000000000000000000000000")), locale));
+		} else if ((number.divide(new BigInteger(nonillion)).compareTo(BigInteger.ZERO)) > 0) {
+			words.append(numberToWord(number.divide(new BigInteger(nonillion)), locale));
 			if (locale.equals(turkishLocale)) {
 				words.append(" nonilyon ");
 			} else {
 				words.append(" nonillion ");
 			}
-			if (!isModZero(number, new BigInteger("1000000000000000000000000000000"))) {
-				words.append(numberToWord(number.mod(new BigInteger("1000000000000000000000000000000")), locale));
+			if (!isModZero(number, new BigInteger(nonillion))) {
+				words.append(numberToWord(number.mod(new BigInteger(nonillion)), locale));
 			}
-		} else if ((number.divide(new BigInteger("1000000000000000000000000000")).compareTo(BigInteger.ZERO)) > 0) {
-			words.append(numberToWord(number.divide(new BigInteger("1000000000000000000000000000")), locale));
+		} else if ((number.divide(new BigInteger(octillion)).compareTo(BigInteger.ZERO)) > 0) {
+			words.append(numberToWord(number.divide(new BigInteger(octillion)), locale));
 			if (locale.equals(turkishLocale)) {
 				words.append(" oktilyon ");
 			} else {
 				words.append(" octillion ");
 			}
-			if (!isModZero(number, new BigInteger("1000000000000000000000000000"))) {
-				words.append(numberToWord(number.mod(new BigInteger("1000000000000000000000000000")), locale));
+			if (!isModZero(number, new BigInteger(octillion))) {
+				words.append(numberToWord(number.mod(new BigInteger(octillion)), locale));
 			}
-		} else if ((number.divide(new BigInteger("1000000000000000000000000")).compareTo(BigInteger.ZERO)) > 0) {
-			words.append(numberToWord(number.divide(new BigInteger("1000000000000000000000000")), locale));
+		} else if ((number.divide(new BigInteger(septillion)).compareTo(BigInteger.ZERO)) > 0) {
+			words.append(numberToWord(number.divide(new BigInteger(septillion)), locale));
 			if (locale.equals(turkishLocale)) {
 				words.append(" septilyon ");
 			} else {
 				words.append(" septillion ");
 			}
-			if (!isModZero(number, new BigInteger("1000000000000000000000000"))) {
-				words.append(numberToWord(number.mod(new BigInteger("1000000000000000000000000")), locale));
+			if (!isModZero(number, new BigInteger(septillion))) {
+				words.append(numberToWord(number.mod(new BigInteger(septillion)), locale));
 			}
-		} else if ((number.divide(new BigInteger("1000000000000000000000")).compareTo(BigInteger.ZERO)) > 0) {
-			words.append(numberToWord(number.divide(new BigInteger("1000000000000000000000")), locale));
+		} else if ((number.divide(new BigInteger(sextillion)).compareTo(BigInteger.ZERO)) > 0) {
+			words.append(numberToWord(number.divide(new BigInteger(sextillion)), locale));
 			if (locale.equals(turkishLocale)) {
 				words.append(" sekstilyon ");
 			} else {
 				words.append(" sextillion ");
 			}
-			if (!isModZero(number, new BigInteger("1000000000000000000000"))) {
-				words.append(numberToWord(number.mod(new BigInteger("1000000000000000000000")), locale));
+			if (!isModZero(number, new BigInteger(sextillion))) {
+				words.append(numberToWord(number.mod(new BigInteger(sextillion)), locale));
 			}
 		} else if ((number.divide(BigInteger.valueOf(1000000000000000000L)).compareTo(BigInteger.ZERO)) > 0) {
 			words.append(numberToWord(number.divide(BigInteger.valueOf(1000000000000000000L)), locale));

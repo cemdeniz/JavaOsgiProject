@@ -221,7 +221,7 @@ public class Calculator extends JFrame implements ActionListener {
 	private void setResult(String result) {	
 		
 		//Setting the result in UI, with replaceAll erasing extra " " (space) between words.
-		resultField.setText(result.replaceAll("\\s+", " "));
+		resultField.setText(eraseElement(result).replaceAll("\\s+", " "));
 	}
 
 	@Override
@@ -404,7 +404,7 @@ public class Calculator extends JFrame implements ActionListener {
 		return result;
 	}
 	
-	/*private String eraseElement(String result) {
+	private String eraseElement(String result) {
 		//Removing the "bir" right before "yüz". This way TR result is more readable for some cases.
 		StringBuilder words = new StringBuilder();
 
@@ -427,6 +427,6 @@ public class Calculator extends JFrame implements ActionListener {
 		
 		return words.toString();
 		
-	}*/
+	}
 
 }
