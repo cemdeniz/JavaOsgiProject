@@ -14,7 +14,7 @@ Note: if you multiply decillion number with another decillion number, you'll get
 
 Note2: Removed the "bir" right before "yüz" in the result. This way TR result is more readable for some cases.
 
-![osgiApp](https://user-images.githubusercontent.com/29862339/222452980-7a6bbf97-e906-477f-aadc-97e425d73761.png)
+![1](https://user-images.githubusercontent.com/29862339/223960051-a1de0b35-7044-445a-ba17-1053ed7270d8.png)
 
 How to import?
 
