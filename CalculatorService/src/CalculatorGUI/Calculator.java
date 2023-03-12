@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.math.BigInteger;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
+import java.math.BigInteger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,7 +25,7 @@ public class Calculator extends JFrame implements ActionListener {
 	TranslatorService translatorService = new TranslatorService();
 
 	// final variables
-	private static final String turkishLocale = "tr_TR";
+	private final BigInteger unDesillion = new BigInteger("1000000000000000000000000000000000000");
 
 	// UI Components
 	private JTextField number1Field;
@@ -46,8 +46,6 @@ public class Calculator extends JFrame implements ActionListener {
 	private String number1;
 	private String number2;
 	private String result = "";
-
-	// new Locale
 	private Locale currentLocale;
 
 	public Calculator() {
@@ -56,6 +54,7 @@ public class Calculator extends JFrame implements ActionListener {
 		setSize(1107, 215);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new FlowLayout());
+		//Default language setting
 		currentLocale = new Locale("tr", "TR");
 		createUI();
 	}
@@ -159,34 +158,25 @@ public class Calculator extends JFrame implements ActionListener {
 	}
 
 	private String getNumber1(Locale currentLocale) {
-		// Checks if the first input string is in our HashMaps, (if true) returns the
+		// Checks if the first input string is in our HashMaps with current locale, (if true) returns the
 		// String
+
 		String number1 = number1Field.getText().toLowerCase();
 		if (!isNull(number1) && !isEmpty(number1)) {
 			String[] wordArray = number1.split(" ");
 
-			// Checking if there is "zero" or "sıfır" between numbers. ex: one hundred zero
-			// five + five
 			for (String word : wordArray) {
-				if (word.equals("sıfır") || word.equals("zero")) {
-					if (wordArray.length > 1) {
-						number1 = null;
-					}
-				}
-			}
-			for (String word : wordArray) {
-				if (currentLocale.getLanguage().equals("tr")
-						&& !translatorService.getNumberToWordMapTR().containsValue(word)
-						&& !translatorService.getBigNumberToWordTR().containsValue(word) && !(word.equals("eksi"))) {
+				if ((currentLocale.getLanguage().equals("tr")
+						&& !translatorService.validateNumber(word, currentLocale.getLanguage())
+						&& !(word.equals("eksi")))) {
 
 					number1 = null;
 
-				} else if (currentLocale.getLanguage().equals("en")
-						&& !translatorService.getNumberToWordMapEN().containsValue(word)
-						&& !translatorService.getBigNumberToWordEN().containsValue(word) && !(word.equals("minus"))) {
+				} else if ((currentLocale.getLanguage().equals("en")
+						&& !translatorService.validateNumber(word, currentLocale.getLanguage())
+						&& !(word.equals("minus")))) {
 
 					number1 = null;
-
 				}
 			}
 		} else {
@@ -198,32 +188,22 @@ public class Calculator extends JFrame implements ActionListener {
 	}
 
 	private String getNumber2(Locale currentLocale) {
-		// Checks if the second input string is in our HashMaps, (if true) returns the
+		// Checks if the second input string is in our HashMaps with current locale, (if true) returns the
 		// String
 		String number2 = number2Field.getText().toLowerCase();
 		if (!isNull(number2) && !isEmpty(number2)) {
 			String[] word2Array = number2.split(" ");
 
-			// Checking if there is "zero" or "sıfır" between numbers. ex: one hundred zero
-			// five + five
 			for (String word2 : word2Array) {
-				if (word2.equals("sıfır") || word2.equals("zero")) {
-					if (word2Array.length > 1) {
-						number1 = null;
-					}
-				}
-			}
-
-			for (String word2 : word2Array) {
-				if (currentLocale.getLanguage().equals("tr")
-						&& !translatorService.getNumberToWordMapTR().containsValue(word2)
-						&& !translatorService.getBigNumberToWordTR().containsValue(word2) && !(word2.equals("eksi"))) {
+				if ((currentLocale.getLanguage().equals("tr")
+						&& !translatorService.validateNumber(word2, currentLocale.getLanguage())
+						&& !(word2.equals("eksi")))) {
 
 					number2 = null;
 
-				} else if (currentLocale.getLanguage().equals("en")
-						&& !translatorService.getNumberToWordMapEN().containsValue(word2)
-						&& !translatorService.getBigNumberToWordEN().containsValue(word2) && !(word2.equals("minus"))) {
+				} else if ((currentLocale.getLanguage().equals("en")
+						&& !translatorService.validateNumber(word2, currentLocale.getLanguage())
+						&& !(word2.equals("minus")))) {
 
 					number2 = null;
 
@@ -238,7 +218,7 @@ public class Calculator extends JFrame implements ActionListener {
 
 	private void setResult(String result) {
 
-		// Setting the result in UI, 
+		// Setting the result in UI,
 		// with replaceAll erasing extra " " (space) between words.
 		resultField.setText(eraseElement(result).replaceAll("\\s+", " "));
 	}
@@ -282,7 +262,6 @@ public class Calculator extends JFrame implements ActionListener {
 			// division method
 			divisionBol(number1, number2, num1, num2, mathResult);
 			break;
-
 		case "Clear":
 		case "Temizle":
 
@@ -296,18 +275,20 @@ public class Calculator extends JFrame implements ActionListener {
 	}
 
 	private void showWarning(Locale currentLocale) {
+		// Clear result
+		result = "";
+		setResult(result);
 		// Throws a warning
 		if (currentLocale.getLanguage().equals("tr")) {
-			JOptionPane
-					.showMessageDialog(null,
-							"Sayı alanlarını boş bırakmayınız.\n" + "Sayılar yazı şeklinde girilmeli.\n"
-									+"Girdiğiniz yazı dil ile uyumlu olmalı.\n" ,
-							"Java OSGi Application ", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null,
+					"-Alanlara boş veya yanlış değer girmeyiniz\n" + "-Sayılar yazı şeklinde girilmeli.\n"
+							+ "-Sonuç Undesilyondan büyük olamaz.\n" + "-Girdiğiniz yazı dil ile uyumlu olmalı.\n",
+					"Hata Aldınız!", JOptionPane.ERROR_MESSAGE);
 		} else {
 			JOptionPane.showMessageDialog(null,
-					"Please don't leave number fields empty." + "Please enter numbers in String form.\n"
-							+ "Your entry should match with language.\n",
-					"Java OSGi Application ", JOptionPane.ERROR_MESSAGE);
+					"Please don't leave number fields empty.\n" + "Please enter numbers in String form.\n"
+							+ "Result can't be higher than Undesillion\n" + "Your entry should match with language.\n",
+					"Error Message!", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -317,19 +298,25 @@ public class Calculator extends JFrame implements ActionListener {
 		// do math operation.
 		// After operation calls translatorService.numberToWord to convert result into
 		// words to show result.
-
 		if (!isNull(number1)) {
-			num1 = translatorService.wordToNumber(number1, currentLocale.toString());
+			num1 = translatorService.wordToNumber(number1, currentLocale.getLanguage());
 		}
+
 		if (!isNull(number2)) {
-			num2 = translatorService.wordToNumber(number2, currentLocale.toString());
+			num2 = translatorService.wordToNumber(number2, currentLocale.getLanguage());
 		}
 		if (!isNull(number1) && !isNull(number2)) {
 
 			// calculating the math operation
 			mathResult = num1.add(num2);
-			// sending result to return as Words
-			result = translatorService.numberToWord(mathResult, currentLocale.toString());
+			// If result reaches to unDecillion(10^36) throw error
+			if (mathResult.compareTo(unDesillion) < 0) {
+				// sending result to return as Words
+				result = translatorService.numberToWord(mathResult, currentLocale.getLanguage());
+			} else {
+
+				showWarning(currentLocale);
+			}
 
 		} else {
 
@@ -342,17 +329,22 @@ public class Calculator extends JFrame implements ActionListener {
 			BigInteger mathResult) {
 
 		if (!isNull(number1)) {
-			num1 = translatorService.wordToNumber(number1, currentLocale.toString());
+			num1 = translatorService.wordToNumber(number1, currentLocale.getLanguage());
 		}
 		if (!isNull(number2)) {
-			num2 = translatorService.wordToNumber(number2, currentLocale.toString());
+			num2 = translatorService.wordToNumber(number2, currentLocale.getLanguage());
 		}
 		if (!isNull(number1) && !isNull(number2)) {
 
 			// calculating the math operation
 			mathResult = num1.subtract(num2);
-			// sending result to return as Words
-			result = translatorService.numberToWord(mathResult, currentLocale.toString());
+			// If result reaches to unDecillion(10^36) throw error
+			if (mathResult.compareTo(unDesillion) < 0) {
+				// sending result to return as Words
+				result = translatorService.numberToWord(mathResult, currentLocale.getLanguage());
+			} else {
+				showWarning(currentLocale);
+			}
 		} else {
 
 			showWarning(currentLocale);
@@ -362,29 +354,34 @@ public class Calculator extends JFrame implements ActionListener {
 	private void multiplyCarp(String number1, String number2, BigInteger num1, BigInteger num2, BigInteger mathResult) {
 
 		if (!isNull(number1)) {
-			num1 = translatorService.wordToNumber(number1, currentLocale.toString());
+			num1 = translatorService.wordToNumber(number1, currentLocale.getLanguage());
 		}
 		if (!isNull(number2)) {
-			num2 = translatorService.wordToNumber(number2, currentLocale.toString());
+			num2 = translatorService.wordToNumber(number2, currentLocale.getLanguage());
 		}
 		if (!isNull(number1) && !isNull(number2)) {
 			// calculating the math operation
 			mathResult = num1.multiply(num2);
-			// sending result to return as Words
-			result = translatorService.numberToWord(mathResult, currentLocale.toString());
+			// If result reaches to unDecillion(10^36) throw error
+			if (mathResult.compareTo(unDesillion) < 0) {
+				// sending result to return as Words
+				result = translatorService.numberToWord(mathResult, currentLocale.getLanguage());
+			} else {
+				showWarning(currentLocale);
+			}
+
 		} else {
 			showWarning(currentLocale);
 		}
-	
 
 	}
 
 	private void divisionBol(String number1, String number2, BigInteger num1, BigInteger num2, BigInteger mathResult) {
 		if (!isNull(number1)) {
-			num1 = translatorService.wordToNumber(number1, currentLocale.toString());
+			num1 = translatorService.wordToNumber(number1, currentLocale.getLanguage());
 		}
 		if (!isNull(number2)) {
-			num2 = translatorService.wordToNumber(number2, currentLocale.toString());
+			num2 = translatorService.wordToNumber(number2, currentLocale.getLanguage());
 		}
 
 		if (!isNull(number1) && !isNull(number2)) {
@@ -394,44 +391,39 @@ public class Calculator extends JFrame implements ActionListener {
 			} else if (!isNull(number1) && !isNull(number2) && isEmpty(isUndefined(num2, currentLocale))) {
 				// calculating the math operation
 				mathResult = num1.divide(num2);
-				// sending result to return as Words
-				result = translatorService.numberToWord(mathResult, currentLocale.toString());
+
+				// If result reaches to unDecillion(10^36) throw error
+				if (mathResult.compareTo(unDesillion) < 0) {
+					// sending result to return as Words
+					result = translatorService.numberToWord(mathResult, currentLocale.getLanguage());
+				} else {
+					showWarning(currentLocale);
+				}
 			} else {
 				showWarning(currentLocale);
 			}
-			
+
 		} else {
 			showWarning(currentLocale);
 		}
-		
-
-		
 
 	}
 
 	private boolean isNull(String number) {
 		// cheking if the number is null
-		if (number == null) {
-			return true;
-		}
-		return false;
+		return number == null ? true : false;
 	}
 
 	private boolean isEmpty(String number) {
 		// cheking if the number is empty
-		if (number.equals("")) {
-			return true;
-		}
-		return false;
+		return number.equals("") ? true : false;
 	}
 
 	private String isUndefined(BigInteger number, Locale currentLocale) {
 		// cheking if the number is undefined
 		String result = "";
-		if (number.compareTo(BigInteger.ZERO) == 0 && currentLocale.getLanguage().equals("tr")) {
-			result = "Tanımsız";
-		} else if (number.compareTo(BigInteger.ZERO) == 0 && currentLocale.getLanguage().equals("en")) {
-			result = "Undefined";
+		if (number.compareTo(BigInteger.ZERO) == 0) {
+			result = currentLocale.getLanguage().equals("tr") ? "Tanımsız" : "Undefined";
 		}
 		return result;
 	}
