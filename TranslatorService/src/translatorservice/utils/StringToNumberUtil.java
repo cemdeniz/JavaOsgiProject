@@ -5,9 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class StringToNumberUtil {
-	
-	
-	
+	/*
+	 * This class defines a utility for converting numbers written as strings into their corresponding numerical value. 
+	 * The utility supports both English and Turkish language, and is able to convert numbers in the range of 0 to 10^33-1.
+	 * The utility uses maps to define the number values for each word that can represent a number, such as "one", "two", "three", etc. 
+	 * Additionally, it defines maps for common group words, such as "hundred", "thousand", "million", etc., which are used to construct larger numbers by combining the values of smaller ones.
+	 */
+		
     public static final Map<String, BigInteger> ONES_PLACE_EN = new HashMap<>();
     public static final Map<String, BigInteger> TENS_PLACE_EN = new HashMap<>();
     public static final Map<String, BigInteger> TEENS_PLACE_EN = new HashMap<>();
@@ -30,9 +34,7 @@ public class StringToNumberUtil {
     	ONES_PLACE_EN.put("six", BigInteger.valueOf(6));
     	ONES_PLACE_EN.put("seven", BigInteger.valueOf(7));
     	ONES_PLACE_EN.put("eight", BigInteger.valueOf(8));
-    	ONES_PLACE_EN.put("nine", BigInteger.valueOf(9));
-    	
-    	    	
+    	ONES_PLACE_EN.put("nine", BigInteger.valueOf(9));   	    	
         
         TEENS_PLACE_EN.put("eleven", BigInteger.valueOf(11));
         TEENS_PLACE_EN.put("twelve", BigInteger.valueOf(12));
