@@ -14,7 +14,7 @@ Note: Removed the "bir" right before "yüz" in the result. This way TR result is
 
 Warning: Application checks if the number String(one, two, ...) enrty is valid but if you enter "one one" as a first number and "two two" as a second number, you don't get error. Application will assume your entries are 2 and 4.
 
-![Screenshot_1](https://user-images.githubusercontent.com/29862339/228633194-ba9e4ba0-8706-4e6e-b330-4c2d7fdc009e.png)
+![Screenshot_1](https://user-images.githubusercontent.com/29862339/228644065-8ebc49c8-e9cf-4543-8cd8-0658063622fb.png)
 
 How to import?
 

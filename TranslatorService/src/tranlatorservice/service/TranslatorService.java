@@ -125,59 +125,40 @@ public class TranslatorService implements ITranslator {
 		BigInteger number = BigInteger.ZERO;
 		BigInteger groupValue = BigInteger.ONE;
 		// Iterate through the words array and convert each word to a BigInteger value
+		
 		for (int i = words.length - 1; i >= 0; i--) {
 			BigInteger value = null;
-			switch (words[i]) {
-			// Handle ones and teens places
-			case "one":
-			case "bir":			
-			case "two":
-			case "iki":
-			case "three":
-			case "üç":	
-			case "four":
-			case "dört":			
-			case "five":
-			case "beş":
-			case "six":
-			case "altı":
-			case "seven":
-			case "yedi":
-			case "eight":
-			case "sekiz":
-			case "nine":
-			case "dokuz":
+			String flag = "";
+			
+			//Searching the word in our Hash Maps for ONES, TEENS and TENS
+			for (Map.Entry<String, BigInteger> searchWord :
+				CURRENT_ONES.entrySet()) {
+				if (words[i].equals(searchWord.getKey())) {
+					flag = "ones"; // number is between 0-10
+					}
+			}
+			for (Map.Entry<String, BigInteger> searchWord :
+				CURRENT_TEENS.entrySet()) {
+				if (words[i].equals(searchWord.getKey())) {
+					flag = "teens"; // number is between 10-20
+					}
+			}
+			for (Map.Entry<String, BigInteger> searchWord :
+				CURRENT_TENS.entrySet()) {
+				if (words[i].equals(searchWord.getKey())) {
+					flag = "tens"; // number is between 20-100
+					}
+			}
+			
+			switch (flag) {
+			// Handle numbers that smaller than 1000
+			case "ones":
 				value = CURRENT_ONES.get(words[i]);
 				break;
-			case "eleven":	
-			case "twelve":	
-			case "thirteen":
-			case "fourteen":
-			case "fifteen":
-			case "sixteen":
-			case "seventeen":
-			case "eighteen":
-			case "nineteen":
+			case "teens":	
 				value = CURRENT_TEENS.get(words[i]);
 				break;
-			case "ten":
-			case "on":
-			case "twenty":
-			case "yirmi":
-			case "thirty":
-			case "otuz":
-			case "forty":
-			case "kırk":
-			case "fifty":
-			case "elli":
-			case "sixty":
-			case "atmış":
-			case "seventy":
-			case "yetmiş":
-			case "eighty":
-			case "seksen":
-			case "ninety":
-			case "doksan":
+			case "tens":
 				value = CURRENT_TENS.get(words[i]);
 				break;
 				// Handle group values

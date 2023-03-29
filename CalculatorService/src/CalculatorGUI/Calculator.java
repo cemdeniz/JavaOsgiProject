@@ -92,6 +92,7 @@ public class Calculator extends JFrame implements ActionListener {
 	        setLayout(layout);
 	        
 	        setMinimumSize(new Dimension(650,275));
+	        
 	        c.insets = new Insets(5, 5, 5, 5);
 	        
 	        // Language selection
