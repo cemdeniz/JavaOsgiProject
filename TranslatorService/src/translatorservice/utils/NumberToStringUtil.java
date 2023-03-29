@@ -17,4 +17,3 @@ public class NumberToStringUtil {
     public static final String[] GROUPS_TR = {"", "bin", "milyon", "milyar", "trilyon", "katrilyon", "kentilyon", "sekstilyon", "septilyon", "oktilyon", "nonilyon", "desilyon"};
     
 }
-

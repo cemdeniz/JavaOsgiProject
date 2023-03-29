@@ -16,7 +16,7 @@ public class Activator implements BundleActivator {
 
 	public void start(BundleContext bundleContext) throws Exception {
 		System.out.println("Starting CalculatorService");
-		Activator.context = bundleContext;
+		context = bundleContext;
 
 		Calculator calculator = new Calculator();
 		calculator.setVisible(true);

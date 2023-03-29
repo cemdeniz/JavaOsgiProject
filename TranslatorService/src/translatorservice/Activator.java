@@ -15,12 +15,14 @@ public class Activator implements BundleActivator {
 	}
 
 	public void start(BundleContext bundleContext) throws Exception {
-		Activator.context = bundleContext;
+		System.out.println("Starting TranslatorService");
+		context = bundleContext;
 		
 	}
 
 	public void stop(BundleContext bundleContext) throws Exception {
-		Activator.context = null;
+		System.out.println("Stopping TranslatorService");
+		context = null;
 	}
 
 }

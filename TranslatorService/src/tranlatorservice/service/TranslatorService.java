@@ -83,7 +83,6 @@ public class TranslatorService implements ITranslator {
 		return words.trim();
 	}
 	
-
 	@Override
 	public BigInteger wordToNumber(String word, String locale) {
 		/**
@@ -133,19 +132,19 @@ public class TranslatorService implements ITranslator {
 			case "one":
 			case "bir":			
 			case "two":
-			case "iki":			
+			case "iki":
 			case "three":
-			case "üç":			
+			case "üç":	
 			case "four":
 			case "dört":			
 			case "five":
-			case "beş":		
+			case "beş":
 			case "six":
-			case "altı":	
+			case "altı":
 			case "seven":
-			case "yedi":	
+			case "yedi":
 			case "eight":
-			case "sekiz":	
+			case "sekiz":
 			case "nine":
 			case "dokuz":
 				value = CURRENT_ONES.get(words[i]);
@@ -207,7 +206,6 @@ public class TranslatorService implements ITranslator {
 		return number;
 	}
 	
-
 	private static String convertGroupToString(BigInteger number, String[] ONES, String[] TEENS, String[] TENS, String locale) {
 		/**
 		 * Converts a given BigInteger number into a string representation using the provided arrays of words for ones, teens, and tens.
