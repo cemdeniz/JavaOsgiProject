@@ -2,7 +2,6 @@ package translatorservice;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-
 import tranlatorservice.service.TranslatorService;
 
 public class Activator implements BundleActivator {

@@ -10,9 +10,7 @@ Overall, the application is composed of two OSGi services: one for translating n
 The two services will communicate via interfaces defined in their respective bundles, and the user interface service will listen for changes to the active language preference and update the user interface accordingly. 
 The application is be able to support Turkish and English languages, with Turkish being the default. Java Swing is used for the user interface and number arithmetic for the math operations up to Decillion numbers.
 
-Note: Removed the "bir" right before "yüz" in the result. This way TR result is more readable for some cases.
-
-Warning: Application checks if the number String(one, two, ...) enrty is valid but if you enter "one one" as a first number and "two two" as a second number, you don't get error. Application will assume your entries are 2 and 4.
+Note: There is a capital case control for capital inputs(ONE, TWO...) but in Turkish language, case control only works if you have installed windows Turkish language package.
 
 ![Screenshot_1](https://user-images.githubusercontent.com/29862339/228644065-8ebc49c8-e9cf-4543-8cd8-0658063622fb.png)
 
