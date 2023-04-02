@@ -74,11 +74,9 @@ public class Calculator extends JFrame implements ActionListener {
 		currentLocale = Locale.getDefault(); // getting language setting from windows
 		if (!currentLocale.getLanguage().equals("tr")) {
 			// setting default language to TR
-			System.out.println(currentLocale.getLanguage());
 			Locale.setDefault(new Locale("tr", "TR"));
 		}
 		currentLocale = Locale.getDefault();
-		System.out.println(currentLocale.getLanguage());
 		createUI();
 	}
 
