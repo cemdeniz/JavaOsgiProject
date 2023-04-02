@@ -123,11 +123,12 @@ public class TranslatorService implements ITranslator {
 		// Initialize variables
 		int negativeCounter = 0;
 		String[] words = word.toLowerCase().split(" ");
+		
+		
 		if (words[0].equals("eksi") || words[0].equals("minus")) {
 			negativeCounter++;
 			words[0] = "";
 		}
-
 		BigInteger number = BigInteger.ZERO;
 		BigInteger groupValue = BigInteger.ONE;
 		// Iterate through the words array and convert each word to a BigInteger value
@@ -140,6 +141,7 @@ public class TranslatorService implements ITranslator {
 			for (Map.Entry<String, BigInteger> searchWord : CURRENT_ONES.entrySet()) {
 				if (words[i].equals(searchWord.getKey())) {
 					flag = "ones"; // number is between 0-10
+					
 				}
 			}
 			for (Map.Entry<String, BigInteger> searchWord : CURRENT_TEENS.entrySet()) {
@@ -167,8 +169,15 @@ public class TranslatorService implements ITranslator {
 			// Handle group values
 			default:
 				if (CURRENT_GROUPS.containsKey(words[i])) {
+					//adding one before "hundred" and "thousand" if it's the first word.(Ex: hundred five => one hundred five)
+					if(i==0) {
+						if (words[i].equals("yüz") || words[i].equals("hundred") || words[i].equals("bin") || words[i].equals("thousand")) {
+							value= BigInteger.ONE;
+						}
+					}
 					BigInteger newValue = CURRENT_GROUPS.get(words[i]);
 
+	
 					if (newValue.compareTo(groupValue) < 0) {
 						groupValue = groupValue.multiply(newValue);
 						number = number.add(groupValue.subtract(BigInteger.ONE));
@@ -186,6 +195,8 @@ public class TranslatorService implements ITranslator {
 		if (negativeCounter > 0) {
 			number = number.multiply(BigInteger.valueOf(-1));
 		}
+		
+
 
 		return number;
 	}
